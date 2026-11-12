@@ -60,6 +60,8 @@ const fr = {
   inAppBrowser: 'Pour profiter de toutes les options, ouvrez cette page dans votre navigateur.',
   featureTitle: 'Nom de la fonctionnalité',
   featureDescription: 'Décrivez-la en une phrase',
+  moveUp: 'Déplacer vers le haut',
+  moveDown: 'Déplacer vers le bas',
   priority: 'Priorité',
   mustHave: 'Indispensable',
   niceToHave: 'Utile',

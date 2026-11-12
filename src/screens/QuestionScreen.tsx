@@ -1,6 +1,7 @@
 import { useStore } from 'zustand'
 import type { Lang, Question } from '../data/types'
 import type { BrieflyStore } from '../store/briefly-store'
+import { FeatureEditor } from './FeatureEditor'
 
 type Copy = Record<string, string>
 
@@ -72,9 +73,10 @@ export function QuestionScreen({ questions, language, copy, store, onBackToAbout
       )}
 
       <div className="mt-6 space-y-3">
-        {(question.type === 'longText' || question.type === 'features') && (
-          <textarea aria-label={question.label[language]} value={textValue} onChange={(event) => update(event.target.value)} rows={question.type === 'features' ? 3 : 5} className="user-text min-h-32 w-full rounded-xl border border-slate-300 p-4 text-start leading-7 text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100" />
+        {question.type === 'longText' && (
+          <textarea aria-label={question.label[language]} name={question.id} value={textValue} onChange={(event) => update(event.target.value)} rows={5} className="user-text min-h-32 w-full rounded-xl border border-slate-300 p-4 text-start leading-7 text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100" />
         )}
+        {question.type === 'features' && <FeatureEditor value={value} language={language} copy={copy} onChange={update} />}
         {question.type === 'shortText' && (
           <input aria-label={question.label[language]} value={textValue} onChange={(event) => update(event.target.value)} className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100" />
         )}

@@ -58,6 +58,8 @@ const en = {
   inAppBrowser: 'For the best experience, open this page in your browser.',
   featureTitle: 'Feature name',
   featureDescription: 'Describe it in one line',
+  moveUp: 'Move up',
+  moveDown: 'Move down',
   priority: 'Priority',
   mustHave: 'Must-have',
   niceToHave: 'Nice-to-have',

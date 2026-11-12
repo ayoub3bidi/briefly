@@ -60,6 +60,8 @@ const ar = {
   inAppBrowser: 'للاستفادة من كل الخيارات، افتح هذه الصفحة في متصفحك.',
   featureTitle: 'اسم الميزة',
   featureDescription: 'صفها في سطر واحد',
+  moveUp: 'نقل إلى الأعلى',
+  moveDown: 'نقل إلى الأسفل',
   priority: 'الأولوية',
   mustHave: 'أساسية',
   niceToHave: 'مفيدة',
