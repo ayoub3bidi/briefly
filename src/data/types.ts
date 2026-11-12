@@ -18,12 +18,14 @@ export type QuestionOption = {
   label: L10n
 }
 
+export type QuestionCopy = { en: string; fr?: string; ar?: string }
+
 export type Question = {
   id: string
   type: QuestionType
   label: L10n
-  help?: L10n
-  example?: L10n
+  help?: QuestionCopy
+  example?: QuestionCopy
   options?: QuestionOption[]
   allowNote?: boolean
 }

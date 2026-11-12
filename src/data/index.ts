@@ -53,4 +53,13 @@ export function loadFormConfig(
 }
 
 export { coreQuestions, templateQuestions }
-export type { Answer, Lang, L10n, Question, QuestionOption, QuestionType, TemplateId } from './types'
+export type {
+  Answer,
+  Lang,
+  L10n,
+  Question,
+  QuestionCopy,
+  QuestionOption,
+  QuestionType,
+  TemplateId,
+} from './types'
