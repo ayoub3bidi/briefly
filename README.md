@@ -17,3 +17,9 @@ Copy `.env.example` to `.env` and set the contact details used by the export flo
 pnpm build
 pnpm preview
 ```
+
+## Deployment
+
+```sh
+pnpm run deploy
+```
