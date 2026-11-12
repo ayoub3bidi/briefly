@@ -12,6 +12,7 @@
     "deploy": "pnpm build && wrangler deploy"
   },
   "dependencies": {
+    "@fontsource-variable/cairo": "^5.3.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "zustand": "^5.1.0"

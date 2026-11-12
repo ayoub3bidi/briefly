@@ -1,7 +1,11 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: 'Cairo Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Cairo Variable', ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,4 +25,14 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+.user-text {
+  unicode-bidi: plaintext;
+}
+
+a.user-link,
+.url {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
