@@ -1,16 +1,18 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useStore } from 'zustand'
-import { resolveLanguage, resolveTemplate } from './data'
+import { loadFormConfig, resolveLanguage, resolveTemplate } from './data'
 import type { Lang } from './data/types'
 import { messages } from './i18n'
 import { getBrieflyStore } from './store/briefly-store'
 import { useLanguageStore } from './store/language-store'
 import { getStorageStatus } from './store/storage'
+import { QuestionScreen } from './screens/QuestionScreen'
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
   const template = resolveTemplate(searchParams.get('t'))
   const formStore = getBrieflyStore(template)
+  const questions = loadFormConfig(window.location.search).questions
   const [language, setLanguage] = useState<Lang>(() =>
     resolveLanguage(
       searchParams.get('lang'),
@@ -203,7 +205,18 @@ function App() {
           </>
         )}
 
-        {screen !== 'intro' && screen !== 'about' && (
+        {screen === 'questions' && (
+          <QuestionScreen
+            questions={questions}
+            language={language}
+            copy={copy}
+            store={formStore}
+            onBackToAbout={() => setScreen('about')}
+            onFinish={() => setScreen('review')}
+          />
+        )}
+
+        {(screen === 'review' || screen === 'done') && (
           <div className="mt-10">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{copy.questionsComingSoon}</h1>
             <p className="mt-4 text-base leading-7 text-slate-600">{copy.questionsComingSoonBody}</p>

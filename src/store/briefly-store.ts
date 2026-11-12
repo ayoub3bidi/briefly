@@ -28,14 +28,16 @@ export type BrieflyState = {
   answers: Record<string, Answer>
   profile: ClientProfile
   screen: FormScreen
+  questionIndex: number
   setAnswer: (questionId: string, answer: Answer) => void
   getAnswer: (questionId: string) => Answer
   clearAnswer: (questionId: string) => void
   setProfile: (profile: ClientProfile) => void
   setScreen: (screen: FormScreen) => void
+  setQuestionIndex: (index: number) => void
 }
 
-type BrieflyStore = UseBoundStore<StoreApi<BrieflyState>>
+export type BrieflyStore = UseBoundStore<StoreApi<BrieflyState>>
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -69,10 +71,16 @@ function sanitizeScreen(value: unknown): FormScreen {
   return 'intro'
 }
 
+function sanitizeQuestionIndex(value: unknown, questionCount: number): number {
+  if (typeof value !== 'number' || !Number.isInteger(value) || questionCount < 1) return 0
+  return Math.min(Math.max(value, 0), questionCount - 1)
+}
+
 export function createBrieflyStore(template: TemplateId) {
   const knownQuestionIds = new Set(
     loadFormConfig(`?t=${template}`).questions.map((question) => question.id),
   )
+  const questionCount = knownQuestionIds.size
   const storage = createSafeStorage(`briefly:${template}`)
 
   const createStore = () =>
@@ -82,6 +90,7 @@ export function createBrieflyStore(template: TemplateId) {
           answers: {},
           profile: { ...emptyProfile },
           screen: 'intro',
+          questionIndex: 0,
           setAnswer: (questionId, answer) => {
             if (!knownQuestionIds.has(questionId)) return
             set((state) => ({
@@ -97,6 +106,8 @@ export function createBrieflyStore(template: TemplateId) {
             }),
           setProfile: (profile) => set({ profile }),
           setScreen: (screen) => set({ screen }),
+          setQuestionIndex: (questionIndex) =>
+            set({ questionIndex: sanitizeQuestionIndex(questionIndex, questionCount) }),
         }),
         {
           name: `briefly:${template}`,
@@ -106,6 +117,7 @@ export function createBrieflyStore(template: TemplateId) {
             answers: state.answers,
             profile: state.profile,
             screen: state.screen,
+            questionIndex: state.questionIndex,
           }),
           migrate: (persistedState) => ({
             answers: sanitizeAnswers(
@@ -114,6 +126,10 @@ export function createBrieflyStore(template: TemplateId) {
             ),
             profile: sanitizeProfile(isRecord(persistedState) ? persistedState.profile : undefined),
             screen: sanitizeScreen(isRecord(persistedState) ? persistedState.screen : undefined),
+            questionIndex: sanitizeQuestionIndex(
+              isRecord(persistedState) ? persistedState.questionIndex : undefined,
+              questionCount,
+            ),
           }),
           merge: (persistedState, currentState) => ({
             ...currentState,
@@ -123,6 +139,10 @@ export function createBrieflyStore(template: TemplateId) {
             ),
             profile: sanitizeProfile(isRecord(persistedState) ? persistedState.profile : undefined),
             screen: sanitizeScreen(isRecord(persistedState) ? persistedState.screen : undefined),
+            questionIndex: sanitizeQuestionIndex(
+              isRecord(persistedState) ? persistedState.questionIndex : undefined,
+              questionCount,
+            ),
           }),
         },
       ),
