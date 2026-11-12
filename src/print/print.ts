@@ -11,8 +11,12 @@ export async function printBrief(profile: ClientProfile) {
   const originalTitle = document.title
   await document.fonts.ready
   document.title = `Specs - ${profile.name.trim() || 'Client'} - ${localDateStamp(new Date())}`
-  window.addEventListener('afterprint', () => {
-    document.title = originalTitle
-  }, { once: true })
+  window.addEventListener(
+    'afterprint',
+    () => {
+      document.title = originalTitle
+    },
+    { once: true },
+  )
   window.print()
 }

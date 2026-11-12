@@ -9,28 +9,41 @@ function answerText(question: Question, answer: Answer): string {
   const value = answer.value
   if (typeof value === 'string' && value.trim()) return value.trim()
   if (question.type === 'features' && Array.isArray(value)) {
-    const items = (value as Feature[]).filter((feature) => feature.title?.trim() || feature.description?.trim()).map((feature) => {
-      const priority = feature.priority ? ` (${feature.priority})` : ' (not prioritized yet)'
-      return `- ${[feature.title, feature.description].filter(Boolean).join(': ')}${priority}`
-    })
+    const items = (value as Feature[])
+      .filter((feature) => feature.title?.trim() || feature.description?.trim())
+      .map((feature) => {
+        const priority = feature.priority ? ` (${feature.priority})` : ' (not prioritized yet)'
+        return `- ${[feature.title, feature.description].filter(Boolean).join(': ')}${priority}`
+      })
     return items.length ? items.join('\n') : '[Left blank]'
   }
   if ((question.type === 'list' || question.type === 'links') && Array.isArray(value)) {
-    const entries = (value as Entry[]).filter((entry) => entry.name?.trim() || entry.url?.trim() || entry.note?.trim()).map((entry) => `- ${[entry.name ?? entry.url, entry.note].filter(Boolean).join(' — ')}`)
+    const entries = (value as Entry[])
+      .filter((entry) => entry.name?.trim() || entry.url?.trim() || entry.note?.trim())
+      .map((entry) => `- ${[entry.name ?? entry.url, entry.note].filter(Boolean).join(' — ')}`)
     return entries.length ? entries.join('\n') : '[Left blank]'
   }
   if (question.type === 'single' || question.type === 'multi') {
-    const structured = typeof value === 'object' && value !== null ? value as Record<string, unknown> : {}
+    const structured =
+      typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {}
     const selected = question.allowNote ? structured.selected : value
     const ids = Array.isArray(selected) ? selected : typeof selected === 'string' ? [selected] : []
-    const labels = ids.map((id) => question.options?.find((option) => option.id === id)?.label.en ?? id)
-    if (typeof structured.note === 'string' && structured.note.trim()) labels.push(structured.note.trim())
+    const labels = ids.map(
+      (id) => question.options?.find((option) => option.id === id)?.label.en ?? id,
+    )
+    if (typeof structured.note === 'string' && structured.note.trim())
+      labels.push(structured.note.trim())
     return labels.length ? labels.map((label) => `- ${label}`).join('\n') : '[Left blank]'
   }
   return '[Left blank]'
 }
 
-export function formatBriefText(profile: ClientProfile, templateName: string, questions: Question[], answers: Record<string, Answer>) {
+export function formatBriefText(
+  profile: ClientProfile,
+  templateName: string,
+  questions: Question[],
+  answers: Record<string, Answer>,
+) {
   const lines = [
     '# Project brief',
     '',

@@ -7,13 +7,15 @@ const fr = {
   headline: 'Un projet clair commence par les bonnes questions.',
   intro: 'Quelques questions simples pour transformer votre idée en plan.',
   finishSameDevice: 'Merci de terminer en une seule fois, sur cet appareil et dans ce navigateur.',
-  whoYouAre: 'J’accompagne mes clients pour transformer leurs idées en plan clair et en estimation.',
+  whoYouAre:
+    'J’accompagne mes clients pour transformer leurs idées en plan clair et en estimation.',
   language: 'Langue',
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
   duration: 'Environ 10 minutes',
-  storageWarning: 'Votre progression ne sera pas enregistrée dans ce navigateur. Gardez cette page ouverte jusqu’à la fin.',
+  storageWarning:
+    'Votre progression ne sera pas enregistrée dans ce navigateur. Gardez cette page ouverte jusqu’à la fin.',
   start: 'Commencer',
   continue: 'Continuer',
   nameRequired: 'Veuillez saisir votre nom pour continuer.',
@@ -51,10 +53,13 @@ const fr = {
   whatNext: 'Et ensuite ?',
   doneNext: 'Envoyez-moi ce document et je reviendrai vers vous avec un plan et une estimation.',
   emailSubject: 'Brief du projet — {project}',
-  emailBody: 'Bonjour, j’ai terminé le brief de mon projet. Je joins le PDF à ce message.\n\n{next}',
+  emailBody:
+    'Bonjour, j’ai terminé le brief de mon projet. Je joins le PDF à ce message.\n\n{next}',
   whatsappBody: 'Bonjour, j’ai terminé le brief pour {project}. Je joins le PDF ici. {next}',
-  contactNotConfigured: 'Le partage par e-mail n’est pas encore configuré. Ajoutez VITE_CONTACT_EMAIL à l’environnement du projet pour l’activer.',
-  whatsappNotConfigured: 'Le partage WhatsApp n’est pas encore configuré. Ajoutez VITE_CONTACT_WA à l’environnement du projet pour l’activer.',
+  contactNotConfigured:
+    'Le partage par e-mail n’est pas encore configuré. Ajoutez VITE_CONTACT_EMAIL à l’environnement du projet pour l’activer.',
+  whatsappNotConfigured:
+    'Le partage WhatsApp n’est pas encore configuré. Ajoutez VITE_CONTACT_WA à l’environnement du projet pour l’activer.',
   copyFailed: 'La copie a échoué. Veuillez sélectionner le texte et le copier manuellement.',
   copyText: 'Copier le texte',
   copied: 'Copié',
@@ -63,7 +68,8 @@ const fr = {
   copyEmail: 'Copier l’adresse e-mail',
   sendWhatsapp: 'Envoyer par WhatsApp',
   emailAttachHint: 'Ajoutez le PDF à cet e-mail avant de l’envoyer.',
-  iosPrintTip: 'Sur iPhone : touchez Partager, choisissez Imprimer, écartez les doigts sur l’aperçu, puis touchez Partager et Enregistrer dans Fichiers. Copier le texte fonctionne aussi très bien.',
+  iosPrintTip:
+    'Sur iPhone : touchez Partager, choisissez Imprimer, écartez les doigts sur l’aperçu, puis touchez Partager et Enregistrer dans Fichiers. Copier le texte fonctionne aussi très bien.',
   inAppBrowser: 'Pour profiter de toutes les options, ouvrez cette page dans votre navigateur.',
   featureTitle: 'Nom de la fonctionnalité',
   featureDescription: 'Décrivez-la en une phrase',

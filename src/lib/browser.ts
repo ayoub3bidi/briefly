@@ -15,7 +15,10 @@ export function isInAppBrowser(userAgent: string): boolean {
 }
 
 export function isIOSSafari(userAgent: string): boolean {
-  const ios = /iPhone|iPad|iPod/i.test(userAgent) || (/Macintosh/i.test(userAgent) && /Mobile\//i.test(userAgent))
-  const safari = /Safari/i.test(userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/i.test(userAgent)
+  const ios =
+    /iPhone|iPad|iPod/i.test(userAgent) ||
+    (/Macintosh/i.test(userAgent) && /Mobile\//i.test(userAgent))
+  const safari =
+    /Safari/i.test(userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/i.test(userAgent)
   return ios && safari && !isInAppBrowser(userAgent)
 }

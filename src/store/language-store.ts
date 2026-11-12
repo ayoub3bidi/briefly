@@ -46,7 +46,6 @@ function createLanguageStore() {
       },
     ),
   )
-
 }
 
 export const useLanguageStore = createLanguageStore()

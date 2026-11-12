@@ -11,7 +11,8 @@ const en = {
   langFrench: 'Français',
   langArabic: 'العربية',
   duration: 'About 10 minutes',
-  storageWarning: 'Your progress won’t be saved in this browser. Keep this page open until you finish.',
+  storageWarning:
+    'Your progress won’t be saved in this browser. Keep this page open until you finish.',
   start: 'Start your brief',
   continue: 'Continue',
   nameRequired: 'Please enter your name to continue.',
@@ -51,8 +52,10 @@ const en = {
   emailSubject: 'Project brief — {project}',
   emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.\n\n{next}',
   whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here. {next}',
-  contactNotConfigured: 'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
-  whatsappNotConfigured: 'WhatsApp sharing is not set up yet. Add VITE_CONTACT_WA to the project environment to enable it.',
+  contactNotConfigured:
+    'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
+  whatsappNotConfigured:
+    'WhatsApp sharing is not set up yet. Add VITE_CONTACT_WA to the project environment to enable it.',
   copyFailed: 'Could not copy. Please select and copy the text manually.',
   copyText: 'Copy as text',
   copied: 'Copied',
@@ -61,7 +64,8 @@ const en = {
   copyEmail: 'Copy email address',
   sendWhatsapp: 'Send by WhatsApp',
   emailAttachHint: 'Attach the PDF to this email before sending.',
-  iosPrintTip: 'On iPhone: tap Share, choose Print, pinch out on the preview, then Share and Save to Files. Copy as text also works well.',
+  iosPrintTip:
+    'On iPhone: tap Share, choose Print, pinch out on the preview, then Share and Save to Files. Copy as text also works well.',
   inAppBrowser: 'For the best experience, open this page in your browser.',
   featureTitle: 'Feature name',
   featureDescription: 'Describe it in one line',

@@ -5,13 +5,7 @@ export type L10n = Record<Lang, string>
 export type TemplateId = 'web' | 'mobile' | 'auto' | 'generic'
 
 export type QuestionType =
-  | 'longText'
-  | 'shortText'
-  | 'list'
-  | 'links'
-  | 'features'
-  | 'single'
-  | 'multi'
+  'longText' | 'shortText' | 'list' | 'links' | 'features' | 'single' | 'multi'
 
 export type QuestionOption = {
   id: string

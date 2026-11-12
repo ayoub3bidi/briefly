@@ -1,0 +1,6 @@
+.git
+.wrangler
+coverage
+dist
+node_modules
+pnpm-lock.yaml

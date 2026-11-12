@@ -65,7 +65,13 @@ function sanitizeProfile(value: unknown): ClientProfile {
 }
 
 function sanitizeScreen(value: unknown): FormScreen {
-  if (value === 'intro' || value === 'about' || value === 'questions' || value === 'review' || value === 'done') {
+  if (
+    value === 'intro' ||
+    value === 'about' ||
+    value === 'questions' ||
+    value === 'review' ||
+    value === 'done'
+  ) {
     return value
   }
   return 'intro'
