@@ -9,6 +9,7 @@ import { getStorageStatus } from './store/storage'
 import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
 import { PrintView } from './print/PrintView'
+import { DoneScreen } from './screens/DoneScreen'
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
@@ -234,13 +235,7 @@ function App() {
         )}
 
         {screen === 'done' && (
-          <div className="mt-10">
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{copy.questionsComingSoon}</h1>
-            <p className="mt-4 text-base leading-7 text-slate-600">{copy.questionsComingSoonBody}</p>
-            <button type="button" onClick={() => setScreen('about')} className="mt-8 min-h-12 rounded-xl px-4 text-sm font-semibold text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700">
-              {copy.back}
-            </button>
-          </div>
+          <DoneScreen profile={profile} questions={questions} store={formStore} template={template} copy={copy} />
         )}
       </section>
     </main>
