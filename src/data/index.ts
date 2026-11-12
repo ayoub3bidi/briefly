@@ -3,6 +3,7 @@ import { coreQuestions } from './core'
 import { genericQuestions } from './generic'
 import { mobileQuestions } from './mobile'
 import { webQuestions } from './web'
+import { questionGuidance } from './question-locales'
 import type { Lang, Question, TemplateId } from './types'
 
 const templateQuestions: Record<TemplateId, Question[]> = {
@@ -48,7 +49,10 @@ export function loadFormConfig(
   return {
     template,
     language,
-    questions: [...coreQuestions, ...templateQuestions[template]],
+    questions: [...coreQuestions, ...templateQuestions[template]].map((question) => ({
+      ...question,
+      ...questionGuidance[question.id],
+    })),
   }
 }
 
