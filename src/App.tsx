@@ -7,6 +7,7 @@ import { getBrieflyStore } from './store/briefly-store'
 import { useLanguageStore } from './store/language-store'
 import { getStorageStatus } from './store/storage'
 import { QuestionScreen } from './screens/QuestionScreen'
+import { ReviewScreen } from './screens/ReviewScreen'
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
@@ -216,7 +217,21 @@ function App() {
           />
         )}
 
-        {(screen === 'review' || screen === 'done') && (
+        {screen === 'review' && (
+          <ReviewScreen
+            questions={questions}
+            language={language}
+            copy={copy}
+            store={formStore}
+            onGoBack={(index) => {
+              formStore.getState().setQuestionIndex(index)
+              setScreen('questions')
+            }}
+            onFinish={() => setScreen('done')}
+          />
+        )}
+
+        {screen === 'done' && (
           <div className="mt-10">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{copy.questionsComingSoon}</h1>
             <p className="mt-4 text-base leading-7 text-slate-600">{copy.questionsComingSoonBody}</p>
