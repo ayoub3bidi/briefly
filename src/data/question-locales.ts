@@ -79,20 +79,4 @@ export const questionGuidance: Record<string, LocalizedGuidance> = {
     help: { en: 'Choose who will fix problems or make changes after it is ready.', fr: 'Choisissez qui corrigera les problèmes ou fera des changements après le lancement.', ar: 'اختر من سيصلح المشكلات أو يجري التعديلات بعد الإطلاق.' },
     example: { en: 'I will update it myself, and I will ask you if something breaks.', fr: 'Je ferai les mises à jour moi-même et je vous contacterai en cas de problème.', ar: 'سأتولى تحديثه بنفسي، وسأتواصل معك إذا حدث عطل.' },
   },
-  'auto.tools': {
-    help: { en: 'List the tools that should exchange information and what data should move between them.', fr: 'Indiquez les outils à relier et les données qui doivent circuler entre eux.', ar: 'اذكر الأدوات التي تريد ربطها والبيانات التي ينبغي أن تنتقل بينها.' },
-    example: { en: 'When an order arrives in my shop system, add the customer and order to a spreadsheet.', fr: 'À chaque nouvelle commande dans mon système, ajouter le client et la commande à un tableur.', ar: 'عند وصول طلب إلى نظام المتجر، أضف بيانات العميل والطلب إلى جدول بيانات.' },
-  },
-  'auto.trigger': {
-    help: { en: 'Describe the event or time that should start the automatic steps.', fr: 'Décrivez l’événement ou l’heure qui doit déclencher les étapes automatiques.', ar: 'اشرح الحدث أو الوقت الذي ينبغي أن يبدأ الخطوات التلقائية.' },
-    example: { en: 'Whenever a customer submits the booking form.', fr: 'Chaque fois qu’un client envoie le formulaire de réservation.', ar: 'كلما أرسل عميل نموذج الحجز.' },
-  },
-  'auto.volume': {
-    help: { en: 'Estimate how many times the process runs on a typical day.', fr: 'Estimez le nombre d’exécutions du processus lors d’une journée habituelle.', ar: 'قدّر عدد مرات تنفيذ العملية في يوم عادي.' },
-    example: { en: 'Usually around 20 orders each day.', fr: 'Environ 20 commandes par jour en temps normal.', ar: 'عادةً نحو 20 طلبًا يوميًا.' },
-  },
-  'auto.failure': {
-    help: { en: 'Say who should know when an automatic step fails and how to reach them.', fr: 'Indiquez qui prévenir en cas d’échec et comment le contacter.', ar: 'اذكر من ينبغي إبلاغه عند فشل خطوة تلقائية وكيفية التواصل معه.' },
-    example: { en: 'Email me if an order cannot be added to the delivery system.', fr: 'M’envoyer un e-mail si une commande ne peut pas être ajoutée au système de livraison.', ar: 'أرسل إليّ بريدًا إلكترونيًا إذا تعذرت إضافة طلب إلى نظام التوصيل.' },
-  },
 }
