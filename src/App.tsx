@@ -10,6 +10,7 @@ import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
 import { PrintView } from './print/PrintView'
 import { DoneScreen } from './screens/DoneScreen'
+import { isInAppBrowser } from './lib/browser'
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
@@ -35,6 +36,7 @@ function App() {
     (state) => state.available,
   )
   const copy = messages[language]
+  const inAppBrowser = isInAppBrowser(navigator.userAgent)
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -102,6 +104,12 @@ function App() {
         {!storageAvailable && (
           <p className="mt-6 rounded-xl bg-amber-50 px-4 py-3 text-start text-sm leading-6 text-amber-900" role="status">
             {copy.storageWarning}
+          </p>
+        )}
+
+        {inAppBrowser && (
+          <p className="mt-6 rounded-xl bg-indigo-50 px-4 py-3 text-start text-sm leading-6 text-indigo-950" role="status">
+            {copy.inAppBrowser}
           </p>
         )}
 

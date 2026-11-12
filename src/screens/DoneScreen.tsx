@@ -3,6 +3,7 @@ import type { Lang, Question, TemplateId } from '../data/types'
 import type { BrieflyStore, ClientProfile } from '../store/briefly-store'
 import { formatBriefText, copyText } from '../lib/brief-export'
 import { printBrief } from '../print/print'
+import { isIOSSafari } from '../lib/browser'
 
 type Props = {
   profile: ClientProfile
@@ -31,6 +32,7 @@ export function DoneScreen({ profile, questions, store, template, copy }: Props)
   const whatsappBody = copy.whatsappBody.replace('{project}', project).replace('{next}', copy.doneNext)
   const emailHref = `mailto:${contactEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
   const whatsappHref = `https://wa.me/${contactWhatsApp}?text=${encodeURIComponent(whatsappBody)}`
+  const iosSafari = isIOSSafari(navigator.userAgent)
 
   async function copyBrief() {
     const copied = await copyText(briefText)
@@ -49,6 +51,7 @@ export function DoneScreen({ profile, questions, store, template, copy }: Props)
         <h2 id="next-steps-title" className="text-base font-semibold text-indigo-950">{copy.whatNext}</h2>
         <p className="mt-2 text-sm leading-6 text-indigo-950">{copy.doneNext}</p>
       </section>
+      {iosSafari && <p className="mt-4 rounded-xl bg-slate-50 px-4 py-3 text-start text-sm leading-6 text-slate-700" role="note">{copy.iosPrintTip}</p>}
 
       <div className="mt-6 grid gap-3">
         <button type="button" onClick={() => void copyBrief()} className="min-h-12 rounded-xl border border-indigo-700 px-4 text-start text-sm font-semibold text-indigo-800 hover:bg-indigo-50">{copy.copyText}</button>
