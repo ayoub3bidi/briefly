@@ -8,6 +8,7 @@ import { useLanguageStore } from './store/language-store'
 import { getStorageStatus } from './store/storage'
 import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
+import { PrintView } from './print/PrintView'
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
@@ -74,7 +75,8 @@ function App() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6 py-16 font-sans">
+    <>
+    <main id="app-ui" className="flex min-h-screen items-center justify-center px-6 py-16 font-sans">
       <section className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12">
         <header className="flex items-center justify-between gap-4">
           <p className="text-sm font-semibold tracking-wide text-indigo-700">
@@ -242,6 +244,8 @@ function App() {
         )}
       </section>
     </main>
+    {screen === 'done' && <PrintView store={formStore} questions={questions} profile={profile} template={template} language={language} copy={copy} />}
+    </>
   )
 }
 
