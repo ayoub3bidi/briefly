@@ -1,7 +1,24 @@
+import { useStore } from 'zustand'
+import { resolveTemplate } from './data'
+import { getBrieflyStore } from './store/briefly-store'
+import { getStorageStatus } from './store/storage'
+
 function App() {
+  const template = resolveTemplate(new URLSearchParams(window.location.search).get('t'))
+  getBrieflyStore(template)
+  const storageAvailable = useStore(
+    getStorageStatus(`briefly:${template}`),
+    (state) => state.available,
+  )
+
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-16">
       <section className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12">
+        {!storageAvailable && (
+          <p className="mb-6 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900" role="status">
+            Your progress won’t be saved in this browser. Keep this page open until you finish.
+          </p>
+        )}
         <p className="text-sm font-semibold tracking-wide text-indigo-700">
           BRIEFLY <span className="text-slate-400">/ PROJECT INTAKE</span>
         </p>
