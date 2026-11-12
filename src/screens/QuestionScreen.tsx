@@ -63,7 +63,7 @@ export function QuestionScreen({
   }
 
   function updateEntries(entries: Entry[]) {
-    update(entries.filter((entry) => (entry.name ?? entry.url ?? '').trim() || entry.note?.trim()))
+    update(entries)
   }
 
   return (
