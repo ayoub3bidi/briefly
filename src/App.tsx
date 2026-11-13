@@ -8,7 +8,6 @@ import { useLanguageStore } from './store/language-store'
 import { getStorageStatus } from './store/storage'
 import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
-import { PrintView } from './print/PrintView'
 import { DoneScreen } from './screens/DoneScreen'
 import { isInAppBrowser } from './lib/browser'
 
@@ -81,9 +80,9 @@ function App() {
     <>
       <main
         id="app-ui"
-        className="flex min-h-screen items-center justify-center px-6 py-16 font-sans"
+        className="flex min-h-screen items-start justify-center px-4 py-8 font-sans sm:px-8 sm:py-12 lg:px-12 lg:py-14"
       >
-        <section className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12">
+        <section className="w-full max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-12">
           <header className="flex items-center justify-between gap-4">
             <p className="text-sm font-semibold tracking-wide text-indigo-700">
               {copy.brand} <span className="text-slate-400">/ {copy.category}</span>
@@ -292,21 +291,12 @@ function App() {
               questions={questions}
               store={formStore}
               template={template}
+              language={language}
               copy={copy}
             />
           )}
         </section>
       </main>
-      {screen === 'done' && (
-        <PrintView
-          store={formStore}
-          questions={questions}
-          profile={profile}
-          template={template}
-          language={language}
-          copy={copy}
-        />
-      )}
     </>
   )
 }

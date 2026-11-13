@@ -1,7 +1,9 @@
+import { useRef } from 'react'
 import { useStore } from 'zustand'
 import type { Lang, Question } from '../data/types'
 import type { BrieflyStore } from '../store/briefly-store'
 import { FeatureEditor } from './FeatureEditor'
+import { RoleEditor } from './RoleEditor'
 
 type Copy = Record<string, string>
 
@@ -34,6 +36,8 @@ export function QuestionScreen({
   const answer = useStore(store, (state) => state.answers[question.id] ?? emptyAnswer)
   const setAnswer = useStore(store, (state) => state.setAnswer)
   const setQuestionIndex = useStore(store, (state) => state.setQuestionIndex)
+  const pendingFocusIndex = useRef<number | null>(null)
+  const entryRefs = useRef<Array<HTMLInputElement | null>>([])
   const value = answer.value
   const textValue = typeof value === 'string' ? value : ''
   const selectedValue = Array.isArray(value)
@@ -47,6 +51,7 @@ export function QuestionScreen({
     : typeof structured.selected === 'string'
       ? [structured.selected]
       : []
+  const entries = Array.isArray(value) ? (value as Entry[]) : []
 
   function update(nextValue: unknown) {
     setAnswer(question.id, { value: nextValue })
@@ -129,9 +134,18 @@ export function QuestionScreen({
             className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
           />
         )}
+        {question.id === 'roles' && (
+          <RoleEditor
+            value={value}
+            question={question}
+            language={language}
+            copy={copy}
+            onChange={update}
+          />
+        )}
         {(question.type === 'list' || question.type === 'links') &&
+          question.id !== 'roles' &&
           (() => {
-            const entries = Array.isArray(value) ? (value as Entry[]) : []
             const placeholder = question.type === 'links' ? copy.url : copy.itemName
             const key = question.type === 'links' ? 'url' : 'name'
             return (
@@ -140,6 +154,13 @@ export function QuestionScreen({
                   <div key={entryIndex} className="rounded-xl border border-slate-200 p-3">
                     <div className="flex gap-2">
                       <input
+                        ref={(node) => {
+                          entryRefs.current[entryIndex] = node
+                          if (node && pendingFocusIndex.current === entryIndex) {
+                            node.focus()
+                            pendingFocusIndex.current = null
+                          }
+                        }}
                         aria-label={`${placeholder} ${entryIndex + 1}`}
                         value={entry[key] ?? ''}
                         onChange={(event) =>
@@ -177,7 +198,10 @@ export function QuestionScreen({
                 ))}
                 <button
                   type="button"
-                  onClick={() => updateEntries([...entries, { [key]: '' }])}
+                  onClick={() => {
+                    pendingFocusIndex.current = entries.length
+                    updateEntries([...entries, { [key]: '' }])
+                  }}
                   className="min-h-11 rounded-lg px-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
                 >
                   + {copy.addItem}

@@ -28,6 +28,7 @@ async function enterQuestions(user: ReturnType<typeof userEvent.setup>) {
 
 describe('Briefly flow', () => {
   beforeEach(() => {
+    vi.unstubAllEnvs()
     window.localStorage.clear()
     setRoute('?t=generic&lang=en')
     resetDraft('generic')
@@ -35,8 +36,8 @@ describe('Briefly flow', () => {
 
   it('validates the required name, saves real answers, reviews blanks, returns to answers, and exports', async () => {
     const user = userEvent.setup()
-    const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } })
+    vi.stubEnv('VITE_CONTACT_EMAIL', 'hello@example.com')
+    vi.stubEnv('VITE_CONTACT_WA', '+216 12 345 678')
     render(<App />)
 
     await enterQuestions(user)
@@ -58,10 +59,22 @@ describe('Briefly flow', () => {
     expect(problem).toHaveValue('Reduce missed customer requests')
 
     await user.click(screen.getByRole('button', { name: 'Next' }))
+    await user.click(screen.getByLabelText('Customers'))
+    await user.click(screen.getByRole('button', { name: /Add a custom role/ }))
+    await user.type(screen.getByRole('textbox', { name: 'Custom role 1' }), 'Warehouse team')
+    await user.type(screen.getByRole('textbox', { name: 'Optional note 1' }), 'Prepare orders')
+    await user.click(screen.getByRole('button', { name: 'Next' }))
+    await user.click(screen.getByRole('button', { name: 'Next' }))
     await user.click(screen.getByRole('button', { name: /Add another/ }))
-    await user.type(screen.getByRole('textbox', { name: 'Name 1' }), 'Customers')
-    expect(screen.getByRole('textbox', { name: 'Name 1' })).toHaveValue('Customers')
-    for (let index = 1; index < loadFormConfig('?t=generic').questions.length - 1; index += 1) {
+    await user.type(screen.getByRole('textbox', { name: 'Feature name 1' }), 'Track orders')
+    await user.click(screen.getByRole('button', { name: 'Next' }))
+    await user.click(screen.getByRole('button', { name: /Add another/ }))
+    await user.type(screen.getByRole('textbox', { name: 'Website link 1' }), 'https://example.com')
+    await user.click(screen.getByRole('button', { name: /Add another/ }))
+    expect(screen.getByRole('textbox', { name: 'Website link 2' })).toHaveFocus()
+    await user.click(screen.getAllByRole('button', { name: 'Remove' })[1])
+    expect(screen.queryByRole('textbox', { name: 'Website link 2' })).not.toBeInTheDocument()
+    for (let index = 4; index < loadFormConfig('?t=generic').questions.length - 1; index += 1) {
       await user.click(screen.getByRole('button', { name: 'Next' }))
     }
     await user.click(screen.getByRole('button', { name: 'Review your answers' }))
@@ -90,10 +103,31 @@ describe('Briefly flow', () => {
       /^https:\/\/wa\.me\//,
     )
     expect(JSON.parse(localStorage.getItem('briefly:lang') ?? '{}').state.language).toBe('en')
-    await user.click(screen.getByRole('button', { name: 'Copy as text' }))
-    expect(await screen.findByText('Copied')).toBeInTheDocument()
-    expect(writeText).toHaveBeenCalledOnce()
-    expect(writeText.mock.calls[0][0]).toContain('Reduce missed customer requests')
+    expect(screen.queryByRole('button', { name: 'Copy as text' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Download PDF' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Send by WhatsApp' }).getAttribute('href')).toContain(
+      '21612345678',
+    )
+  })
+
+  it('shows contact setup guidance when optional contact values are missing', () => {
+    vi.stubEnv('VITE_CONTACT_EMAIL', '')
+    vi.stubEnv('VITE_CONTACT_WA', '')
+    const store = getBrieflyStore('generic')
+    store.getState().setProfile({
+      name: 'Client One',
+      company: '',
+      email: '',
+      phone: '',
+      projectName: '',
+    })
+    store.getState().setScreen('done')
+
+    render(<App />)
+
+    expect(screen.getByText(/Email sharing is not set up yet/)).toBeInTheDocument()
+    expect(screen.getByText(/WhatsApp sharing is not set up yet/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Download PDF' })).toBeInTheDocument()
   })
 
   it.each(['web', 'generic', 'mobile', 'auto'] as const)(

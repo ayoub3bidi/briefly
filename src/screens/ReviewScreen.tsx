@@ -1,6 +1,7 @@
 import { useStore } from 'zustand'
 import type { Lang, Question } from '../data/types'
 import type { BrieflyStore } from '../store/briefly-store'
+import { roleAnswerLines } from '../lib/role-answer'
 
 type Props = {
   questions: Question[]
@@ -50,7 +51,9 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
           const blank = !answer.notSure && !isMeaningful(value)
           let display: string[] = []
 
-          if (question.type === 'features' && Array.isArray(value)) {
+          if (question.id === 'roles') {
+            display = roleAnswerLines(value, question.options ?? [], language)
+          } else if (question.type === 'features' && Array.isArray(value)) {
             display = (value as Feature[])
               .filter((feature) => !!feature.title?.trim() || !!feature.description?.trim())
               .map((feature) => {

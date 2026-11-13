@@ -22,6 +22,29 @@ export const coreQuestions: Question[] = [
     },
     help: { en: 'List the people or groups who will use it. You can add a short note for each.' },
     example: { en: 'Customers: place orders. Staff: prepare them. Me: manage products.' },
+    options: [
+      { id: 'customers', label: { en: 'Customers', fr: 'Clients', ar: 'العملاء' } },
+      {
+        id: 'team',
+        label: { en: 'Team or staff', fr: 'Équipe ou personnel', ar: 'الفريق أو الموظفون' },
+      },
+      {
+        id: 'owner',
+        label: {
+          en: 'Owner or administrator',
+          fr: 'Propriétaire ou administrateur',
+          ar: 'المالك أو المسؤول',
+        },
+      },
+      {
+        id: 'partners',
+        label: {
+          en: 'Partners or suppliers',
+          fr: 'Partenaires ou fournisseurs',
+          ar: 'الشركاء أو الموردون',
+        },
+      },
+    ],
   },
   {
     id: 'walkthrough',

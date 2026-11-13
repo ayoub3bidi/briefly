@@ -1,5 +1,6 @@
 import type { Answer, Question } from '../data/types'
 import type { ClientProfile } from '../store/briefly-store'
+import { roleAnswerLines } from './role-answer'
 
 type Entry = { name?: string; url?: string; note?: string }
 type Feature = { title?: string; description?: string; priority?: string }
@@ -8,6 +9,10 @@ function answerText(question: Question, answer: Answer): string {
   if (answer.notSure) return '[Not sure yet]'
   const value = answer.value
   if (typeof value === 'string' && value.trim()) return value.trim()
+  if (question.id === 'roles') {
+    const roles = roleAnswerLines(value, question.options ?? [], 'en')
+    return roles.length ? roles.map((role) => `- ${role}`).join('\n') : '[Left blank]'
+  }
   if (question.type === 'features' && Array.isArray(value)) {
     const items = (value as Feature[])
       .filter((feature) => feature.title?.trim() || feature.description?.trim())
