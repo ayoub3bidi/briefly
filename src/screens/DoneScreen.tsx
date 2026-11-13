@@ -17,6 +17,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
   const [pdfState, setPdfState] = useState<'idle' | 'preparing' | 'failed'>('idle')
   const [createdAt] = useState(() => new Date())
   const [emailCopied, setEmailCopied] = useState(false)
+  const [confirmReset, setConfirmReset] = useState(false)
   const contactEmail = (import.meta.env.VITE_CONTACT_EMAIL ?? '').trim()
   const contactWhatsApp = (import.meta.env.VITE_CONTACT_WA ?? '').replace(/\D/g, '')
   const project = profile.projectName || profile.name
@@ -79,12 +80,31 @@ export function DoneScreen({ profile, questions, store, template, language, copy
         </h2>
         <p className="mt-2 text-sm leading-6 text-indigo-950">{copy.doneNext}</p>
       </section>
-      <div className="mt-6 grid gap-3">
+      <div className="mt-6 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={() => setConfirmReset(true)}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 text-sm font-semibold text-slate-700 cursor-pointer hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 sm:w-auto"
+        >
+          <svg
+            aria-hidden="true"
+            className="size-5 shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.8"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          {copy.startOver}
+        </button>
         <button
           type="button"
           onClick={() => void downloadPdf()}
           disabled={pdfState === 'preparing'}
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white shadow-sm cursor-pointer transition-[background-color,box-shadow] duration-300 ease-in-out hover:bg-indigo-600 hover:shadow-lg active:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white shadow-sm cursor-pointer transition-[background-color,box-shadow] duration-300 ease-in-out hover:bg-indigo-600 hover:shadow-lg active:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70 sm:w-auto"
         >
           <svg aria-hidden="true" className="size-5 shrink-0" viewBox="0 0 24 24" fill="none">
             <path
@@ -98,10 +118,48 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           {pdfState === 'preparing' ? copy.pdfPreparing : copy.downloadPdf}
         </button>
         {pdfState === 'failed' && (
-          <p role="status" className="text-sm text-rose-700">
+          <p role="status" className="col-span-2 text-sm text-rose-700">
             {copy.pdfFailed}
           </p>
         )}
+      </div>
+
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ease-out ${confirmReset ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setConfirmReset(false)}
+      >
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out"
+          onClick={(event) => event.stopPropagation()}
+        />
+        <div
+          className={`relative z-10 w-full max-w-md rounded-2xl bg-white shadow-2xl mx-4 transition-all duration-300 ease-out ${confirmReset ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="p-6">
+            <h2 className="text-lg font-semibold text-slate-950">{copy.startOver}</h2>
+            <p className="mt-2 text-sm text-slate-600">{copy.startOverConfirm}</p>
+          </div>
+          <div className="border-t border-slate-200 p-4 flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setConfirmReset(false)}
+              className="min-h-11 rounded-xl px-4 text-sm font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            >
+              {copy.cancel}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                store.getState().reset()
+                setConfirmReset(false)
+              }}
+              className="min-h-11 rounded-xl bg-rose-600 px-5 text-sm font-medium text-white hover:bg-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
+            >
+              {copy.confirmStartOver}
+            </button>
+          </div>
+        </div>
       </div>
 
       <section className="mt-7 border-t border-slate-100 pt-5">

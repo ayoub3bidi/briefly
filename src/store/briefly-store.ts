@@ -33,6 +33,7 @@ export type BrieflyState = {
   getAnswer: (questionId: string) => Answer
   clearAnswer: (questionId: string) => void
   setProfile: (profile: ClientProfile) => void
+  reset: () => void
   setScreen: (screen: FormScreen) => void
   setQuestionIndex: (index: number) => void
 }
@@ -111,6 +112,15 @@ export function createBrieflyStore(template: TemplateId) {
               return { answers }
             }),
           setProfile: (profile) => set({ profile }),
+          reset: () => {
+            set({
+              answers: {},
+              profile: { ...emptyProfile },
+              screen: 'intro',
+              questionIndex: 0,
+            })
+            storage.removeItem(`briefly:${template}`)
+          },
           setScreen: (screen) => set({ screen }),
           setQuestionIndex: (questionIndex) =>
             set({ questionIndex: sanitizeQuestionIndex(questionIndex, questionCount) }),

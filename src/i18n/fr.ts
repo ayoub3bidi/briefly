@@ -53,6 +53,11 @@ const fr = {
   leftBlank: 'Sans réponse',
   goBack: 'Revenir à la question',
   finish: 'Terminer',
+  startOver: 'Recommencer',
+  startOverConfirm:
+    'Cela effacera vos réponses enregistrées et relancera le questionnaire depuis le début. Êtes-vous sûr ?',
+  cancel: 'Annuler',
+  confirmStartOver: 'Oui, recommencer',
   doneTitle: 'Votre brief est prêt',
   whatNext: 'Et ensuite ?',
   doneNext: 'Envoyez-moi ce document et je reviendrai vers vous avec un plan et une estimation.',

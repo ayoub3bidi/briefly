@@ -50,6 +50,11 @@ const en = {
   leftBlank: 'Left blank',
   goBack: 'Go back',
   finish: 'Finish',
+  startOver: 'Start over',
+  startOverConfirm:
+    'This will erase your saved answers and start the brief from the beginning. Are you sure?',
+  cancel: 'Cancel',
+  confirmStartOver: 'Yes, start over',
   doneTitle: 'Your brief is ready',
   whatNext: 'What happens next',
   doneNext: 'Send this to me and I’ll come back with a plan and an estimate.',

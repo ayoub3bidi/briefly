@@ -110,6 +110,39 @@ describe('Briefly flow', () => {
     )
   })
 
+  it('start over wipes the draft and returns to the intro screen', async () => {
+    const user = userEvent.setup()
+    vi.stubEnv('VITE_CONTACT_EMAIL', 'hello@example.com')
+    vi.stubEnv('VITE_CONTACT_WA', '+216 12 345 678')
+    render(<App />)
+
+    await enterQuestions(user)
+
+    // Walk through every question to reach the done screen.
+    for (let index = 0; index < loadFormConfig('?t=generic').questions.length - 1; index += 1) {
+      await user.click(screen.getByRole('button', { name: 'Next' }))
+    }
+    await user.click(screen.getByRole('button', { name: 'Review your answers' }))
+    await user.click(screen.getByRole('button', { name: 'Finish' }))
+    expect(screen.getAllByRole('heading', { name: 'Your brief is ready' }).length).toBeGreaterThan(
+      0,
+    )
+    expect(localStorage.getItem('briefly:generic')).not.toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Start over' }))
+
+    // Confirmation modal opens
+    expect(screen.getByRole('heading', { name: 'Start over' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Yes, start over' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument()
+
+    // Confirming wipes the draft and returns to step one
+    await user.click(screen.getByRole('button', { name: 'Yes, start over' }))
+    expect(screen.getByRole('button', { name: 'Start your brief' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Your brief is ready' })).not.toBeInTheDocument()
+    expect(localStorage.getItem('briefly:generic')).toBeNull()
+  })
+
   it('shows contact setup guidance when optional contact values are missing', () => {
     vi.stubEnv('VITE_CONTACT_EMAIL', '')
     vi.stubEnv('VITE_CONTACT_WA', '')

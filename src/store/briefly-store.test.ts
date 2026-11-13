@@ -62,4 +62,34 @@ describe('template draft store', () => {
     expect(store.getState().screen).toBe('intro')
     expect(store.getState().questionIndex).toBe(14)
   })
+
+  it('reset wipes in-memory state and removes the draft from localStorage', () => {
+    const store = createBrieflyStore('generic')
+    store.getState().setAnswer('problem', { value: 'some answer' })
+    store.getState().setProfile({
+      name: 'Client One',
+      company: 'Studio',
+      email: 'client@example.com',
+      phone: '+216 00 000 000',
+      projectName: 'My project',
+    })
+    store.getState().setScreen('done')
+    store.getState().setQuestionIndex(5)
+
+    expect(localStorage.getItem('briefly:generic')).not.toBeNull()
+
+    store.getState().reset()
+
+    expect(store.getState().answers).toEqual({})
+    expect(store.getState().profile).toEqual({
+      name: '',
+      company: '',
+      email: '',
+      phone: '',
+      projectName: '',
+    })
+    expect(store.getState().screen).toBe('intro')
+    expect(store.getState().questionIndex).toBe(0)
+    expect(localStorage.getItem('briefly:generic')).toBeNull()
+  })
 })
