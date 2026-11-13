@@ -84,8 +84,17 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           type="button"
           onClick={() => void downloadPdf()}
           disabled={pdfState === 'preparing'}
-          className="min-h-12 rounded-xl border border-slate-300 px-4 text-start text-sm font-semibold text-slate-800 hover:bg-slate-50"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white shadow-sm cursor-pointer transition-[background-color,box-shadow] duration-300 ease-in-out hover:bg-indigo-600 hover:shadow-lg active:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70 sm:w-auto"
         >
+          <svg aria-hidden="true" className="size-5 shrink-0" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.8"
+            />
+          </svg>
           {pdfState === 'preparing' ? copy.pdfPreparing : copy.downloadPdf}
         </button>
         {pdfState === 'failed' && (
@@ -95,51 +104,101 @@ export function DoneScreen({ profile, questions, store, template, language, copy
         )}
       </div>
 
-      {contactEmail ? (
-        <section className="mt-7 border-t border-slate-100 pt-5">
-          <h2 className="text-base font-semibold text-slate-900">{copy.sendEmail}</h2>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
-            <a
-              href={emailHref}
-              className="inline-flex min-h-12 items-center rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white hover:bg-indigo-800"
-            >
-              {copy.sendEmail}
-            </a>
-            <button
-              type="button"
-              onClick={() => void copyContactEmail()}
-              className="min-h-12 rounded-xl px-4 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
-            >
-              {emailCopied ? copy.copied : copy.copyEmail}
-            </button>
+      <section className="mt-7 border-t border-slate-100 pt-5">
+        {(contactEmail || contactWhatsApp) && (
+          <div className="flex flex-wrap items-center gap-3">
+            {contactWhatsApp && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-green-200 px-5 text-sm font-semibold text-green-800 transition-colors hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="size-4 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 0 7h0.12" />
+                </svg>
+                {copy.sendWhatsapp}
+              </a>
+            )}
+            {contactEmail && (
+              <>
+                <a
+                  href={emailHref}
+                  className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-indigo-200 px-5 text-sm font-semibold text-indigo-800 transition-colors hover:bg-indigo-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="size-4 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  {copy.sendEmail}
+                </a>
+                <button
+                  type="button"
+                  onClick={() => void copyContactEmail()}
+                  aria-label={`${emailCopied ? copy.copied : copy.copyEmail}: ${contactEmail}`}
+                  className="group relative inline-flex min-h-12 w-full max-w-full items-center justify-center overflow-hidden rounded-xl border border-slate-200 px-6 text-sm font-semibold text-slate-700 cursor-pointer transition-colors duration-200 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 focus-visible:border-indigo-300 focus-visible:bg-indigo-50 focus-visible:text-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none sm:w-auto"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="size-4 shrink-0 mr-1.5 opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <rect x="2" y="2" width="13" height="13" rx="2" ry="2" />
+                    <path d="M4 11h10" />
+                    <path d="M4 15h10" />
+                  </svg>
+                  <span className="transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none">
+                    {emailCopied ? copy.copied : copy.copyEmail}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    dir="ltr"
+                    className="user-text absolute inset-0 flex items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap px-6 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  >
+                    {contactEmail}
+                  </span>
+                </button>
+              </>
+            )}
           </div>
-          <p className="user-text mt-2 text-sm text-slate-600" dir="ltr">
-            {contactEmail}
+        )}
+        {contactEmail ? (
+          <p className="mt-3 text-sm leading-6 text-slate-600">{copy.emailAttachHint}</p>
+        ) : (
+          <p className="text-sm leading-6 text-slate-600" role="status">
+            {copy.contactNotConfigured}
           </p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">{copy.emailAttachHint}</p>
-        </section>
-      ) : (
-        <p className="mt-6 text-sm leading-6 text-slate-600" role="status">
-          {copy.contactNotConfigured}
-        </p>
-      )}
-
-      {contactWhatsApp ? (
-        <section className="mt-6 border-t border-slate-100 pt-5">
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-12 items-center rounded-xl border border-slate-300 px-5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            {copy.sendWhatsapp}
-          </a>
-        </section>
-      ) : (
-        <p className="mt-3 text-sm text-slate-600" role="status">
-          {copy.whatsappNotConfigured}
-        </p>
-      )}
+        )}
+        {!contactWhatsApp && (
+          <p className="mt-3 text-sm text-slate-600" role="status">
+            {copy.whatsappNotConfigured}
+          </p>
+        )}
+      </section>
     </div>
   )
 }

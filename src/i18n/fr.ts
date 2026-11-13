@@ -4,6 +4,8 @@ const fr = {
   pageTitle: 'Briefly — questionnaire projet',
   brand: 'Briefly',
   category: 'Votre projet',
+  allRightsReserved: 'Tous droits réservés.',
+  madeBy: 'Réalisé par',
   headline: 'Un projet clair commence par les bonnes questions.',
   intro: 'Quelques questions simples pour transformer votre idée en plan.',
   finishSameDevice: 'Merci de terminer en une seule fois, sur cet appareil et dans ce navigateur.',

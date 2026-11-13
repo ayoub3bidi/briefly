@@ -2,6 +2,8 @@ const en = {
   pageTitle: 'Briefly — project intake',
   brand: 'Briefly',
   category: 'Project intake',
+  allRightsReserved: 'All rights reserved.',
+  madeBy: 'Made by',
   headline: 'A clear project starts with the right questions.',
   intro: 'A short, guided brief to help turn your idea into a plan.',
   finishSameDevice: 'Please finish in one sitting on this device and browser.',

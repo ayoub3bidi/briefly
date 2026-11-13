@@ -23,6 +23,7 @@ function App() {
       navigator.language,
     ),
   )
+  const [copyrightYear] = useState(() => new Date().getFullYear())
   const profile = useStore(formStore, (state) => state.profile)
   const screen = useStore(formStore, (state) => state.screen)
   const setProfile = useStore(formStore, (state) => state.setProfile)
@@ -77,10 +78,10 @@ function App() {
   }
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <main
         id="app-ui"
-        className="flex min-h-screen items-start justify-center px-4 py-8 font-sans sm:px-8 sm:py-12 lg:px-12 lg:py-14"
+        className="flex flex-1 items-start justify-center px-4 py-8 font-sans sm:px-8 sm:py-12 lg:px-12 lg:py-14"
       >
         <section className="w-full max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-12">
           <header className="flex items-center justify-between gap-4">
@@ -297,7 +298,16 @@ function App() {
           )}
         </section>
       </main>
-    </>
+      <footer className="mx-auto w-full max-w-6xl px-4 pb-6 text-center text-sm text-slate-500 sm:px-8 lg:px-12">
+        © {copyrightYear} {copy.allRightsReserved} {copy.madeBy}{' '}
+        <a
+          href="https://ayoub3bidi.me"
+          className="font-medium text-slate-700 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-indigo-700 hover:decoration-indigo-300 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+        >
+          Ayoub Abidi
+        </a>
+      </footer>
+    </div>
   )
 }
 
