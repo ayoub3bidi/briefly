@@ -193,11 +193,6 @@ export function DoneScreen({ profile, questions, store, template, language, copy
             {copy.contactNotConfigured}
           </p>
         )}
-        {!contactWhatsApp && (
-          <p className="mt-3 text-sm text-slate-600" role="status">
-            {copy.whatsappNotConfigured}
-          </p>
-        )}
       </section>
     </div>
   )
