@@ -78,8 +78,8 @@ jobs:
       - name: Build production assets
         run: pnpm build
         env:
-          VITE_CONTACT_EMAIL: ${{ vars.VITE_CONTACT_EMAIL }}
-          VITE_CONTACT_WA: ${{ vars.VITE_CONTACT_WA }}
+          VITE_CONTACT_EMAIL: ${{ secrets.VITE_CONTACT_EMAIL }}
+          VITE_CONTACT_WA: ${{ secrets.VITE_CONTACT_WA }}
 
       - name: Check Cloudflare credentials are configured
         env:
