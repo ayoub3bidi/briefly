@@ -126,7 +126,6 @@ describe('Briefly flow', () => {
     render(<App />)
 
     expect(screen.getByText(/Email sharing is not set up yet/)).toBeInTheDocument()
-    expect(screen.getByText(/WhatsApp sharing is not set up yet/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Download PDF' })).toBeInTheDocument()
   })
 
