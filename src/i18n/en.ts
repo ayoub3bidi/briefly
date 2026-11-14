@@ -1,7 +1,7 @@
 const en = {
-  pageTitle: 'Briefly | project intake',
+  pageTitle: 'Briefly | Project Intake',
   brand: 'Briefly',
-  category: 'Project intake',
+  category: 'Project Intake',
   allRightsReserved: 'All rights reserved.',
   madeBy: 'Made by',
   headline: 'A clear project starts with the right questions.',
