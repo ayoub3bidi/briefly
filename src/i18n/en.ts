@@ -1,5 +1,5 @@
 const en = {
-  pageTitle: 'Briefly — project intake',
+  pageTitle: 'Briefly | project intake',
   brand: 'Briefly',
   category: 'Project intake',
   allRightsReserved: 'All rights reserved.',
@@ -58,7 +58,7 @@ const en = {
   doneTitle: 'Your brief is ready',
   whatNext: 'What happens next',
   doneNext: 'Send this to me and I’ll come back with a plan and an estimate.',
-  emailSubject: 'Project brief — {project}',
+  emailSubject: 'Project brief | {project}',
   emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.\n\n{next}',
   whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here. {next}',
   contactNotConfigured:

@@ -1,7 +1,7 @@
 import type en from './en'
 
 const ar = {
-  pageTitle: 'Briefly — استبيان المشروع',
+  pageTitle: 'Briefly | استبيان المشروع',
   brand: 'Briefly',
   category: 'تفاصيل المشروع',
   allRightsReserved: 'جميع الحقوق محفوظة.',
@@ -58,7 +58,7 @@ const ar = {
   doneTitle: 'أصبح ملخص مشروعك جاهزًا',
   whatNext: 'ماذا بعد؟',
   doneNext: 'أرسل إليّ هذا الملخص، وسأعود إليك بخطة وتقدير للتكلفة.',
-  emailSubject: 'ملخص المشروع — {project}',
+  emailSubject: 'ملخص المشروع | {project}',
   emailBody: 'مرحبًا، أتممت ملخص مشروعي وأرفقت ملف PDF بهذه الرسالة.\n\n{next}',
   whatsappBody: 'مرحبًا، أتممت ملخص مشروع {project}. سأرفق ملف PDF هنا. {next}',
   contactNotConfigured:

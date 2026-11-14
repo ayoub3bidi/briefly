@@ -37,10 +37,10 @@ describe('formatBriefText', () => {
     expect(output).toContain(
       '## What problem are you trying to solve, and how do you deal with it today?\n\nReduce duplicate work',
     )
-    expect(output).toContain('- Customers — External users')
+    expect(output).toContain('- Customers | External users')
     expect(output).toContain('- Order tracking: Show delivery status (must-have)')
     expect(output).toContain('- Reports (not prioritized yet)')
-    expect(output).toContain('- https://example.com — Simple layout')
+    expect(output).toContain('- https://example.com | Simple layout')
     expect(output).toContain('- Payments')
     expect(output).toContain('- Accounting API')
   })

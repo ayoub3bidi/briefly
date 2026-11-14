@@ -21,6 +21,6 @@ describe('role answers', () => {
         options,
         'fr',
       ),
-    ).toEqual(['Clients', 'Dispatch — Assign drivers'])
+    ).toEqual(['Clients', 'Dispatch | Assign drivers'])
   })
 })

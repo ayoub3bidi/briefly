@@ -24,13 +24,13 @@ export function getPdfAnswerLines(question: Question, answer: Answer, language: 
             : copy.notPrioritized,
         ]
           .filter(Boolean)
-          .join(' — '),
+          .join(' | '),
       )
   }
   if ((question.type === 'list' || question.type === 'links') && Array.isArray(value)) {
     return (value as Entry[])
       .filter((entry) => entry.name?.trim() || entry.url?.trim() || entry.note?.trim())
-      .map((entry) => [entry.name || entry.url, entry.note].filter(Boolean).join(' — '))
+      .map((entry) => [entry.name || entry.url, entry.note].filter(Boolean).join(' | '))
   }
   if (question.type === 'single' || question.type === 'multi') {
     const structured =

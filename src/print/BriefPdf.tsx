@@ -209,7 +209,7 @@ export function BriefPdf({
 
   return (
     <Document
-      title={`Briefly — ${profile.projectName || copy.doneTitle}`}
+      title={`Briefly | ${profile.projectName || copy.doneTitle}`}
       author="Briefly"
       creator="Briefly"
       producer="Briefly"

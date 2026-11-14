@@ -25,7 +25,7 @@ function answerText(question: Question, answer: Answer): string {
   if ((question.type === 'list' || question.type === 'links') && Array.isArray(value)) {
     const entries = (value as Entry[])
       .filter((entry) => entry.name?.trim() || entry.url?.trim() || entry.note?.trim())
-      .map((entry) => `- ${[entry.name ?? entry.url, entry.note].filter(Boolean).join(' — ')}`)
+      .map((entry) => `- ${[entry.name ?? entry.url, entry.note].filter(Boolean).join(' | ')}`)
     return entries.length ? entries.join('\n') : '[Left blank]'
   }
   if (question.type === 'single' || question.type === 'multi') {

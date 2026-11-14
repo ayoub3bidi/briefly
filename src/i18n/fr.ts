@@ -1,7 +1,7 @@
 import type en from './en'
 
 const fr = {
-  pageTitle: 'Briefly — questionnaire projet',
+  pageTitle: 'Briefly | questionnaire projet',
   brand: 'Briefly',
   category: 'Votre projet',
   allRightsReserved: 'Tous droits réservés.',
@@ -60,7 +60,7 @@ const fr = {
   doneTitle: 'Votre brief est prêt',
   whatNext: 'Et ensuite ?',
   doneNext: 'Envoyez-moi ce document et je reviendrai vers vous avec un plan et une estimation.',
-  emailSubject: 'Brief du projet — {project}',
+  emailSubject: 'Brief du projet | {project}',
   emailBody:
     'Bonjour, j’ai terminé le brief de mon projet. Je joins le PDF à ce message.\n\n{next}',
   whatsappBody: 'Bonjour, j’ai terminé le brief pour {project}. Je joins le PDF ici. {next}',

@@ -62,6 +62,6 @@ export function roleAnswerLines(
     ),
     ...answer.custom
       .filter((role) => role.name.trim() || role.note.trim())
-      .map((role) => [role.name, role.note].filter(Boolean).join(' — ')),
+      .map((role) => [role.name, role.note].filter(Boolean).join(' | ')),
   ]
 }

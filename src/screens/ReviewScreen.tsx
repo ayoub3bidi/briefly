@@ -59,7 +59,7 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
               .map((feature) => {
                 const parts = [feature.title, feature.description].filter(Boolean)
                 parts.push(priorityLabel(feature.priority, copy))
-                return parts.join(' — ')
+                return parts.join(' | ')
               })
           } else if (
             (question.type === 'list' || question.type === 'links') &&
@@ -67,7 +67,7 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
           ) {
             display = (value as Entry[])
               .filter(isMeaningful)
-              .map((entry) => [entry.name ?? entry.url, entry.note].filter(Boolean).join(' — '))
+              .map((entry) => [entry.name ?? entry.url, entry.note].filter(Boolean).join(' | '))
           } else if (question.type === 'single' || question.type === 'multi') {
             const selected = question.allowNote ? structured.selected : value
             const ids = Array.isArray(selected)
