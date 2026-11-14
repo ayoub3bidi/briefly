@@ -6,13 +6,13 @@ const en = {
   madeBy: 'Made by',
   headline: 'A clear project starts with the right questions.',
   intro: 'A short, guided brief to help turn your idea into a plan.',
-  finishSameDevice: 'Please finish in one sitting on this device and browser.',
-  whoYouAre: 'I work with clients to turn project ideas into a clear plan and estimate.',
   language: 'Language',
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
   duration: 'About 10 minutes',
+  dataPrivacy:
+    'Briefly is a purely frontend app. Nothing is sent to a server. Your answers live only in this browser’s local storage and nowhere else. Clearing this site’s data will erase your progress.',
   storageWarning:
     'Your progress won’t be saved in this browser. Keep this page open until you finish.',
   start: 'Start your brief',

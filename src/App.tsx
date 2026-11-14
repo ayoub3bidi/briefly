@@ -127,8 +127,12 @@ function App() {
                 {copy.headline}
               </h1>
               <p className="mt-5 text-lg leading-8 text-slate-600">{copy.intro}</p>
-              <p className="mt-3 text-sm leading-6 text-slate-500">{copy.finishSameDevice}</p>
-              <p className="mt-6 text-sm leading-6 text-slate-600">{copy.whoYouAre}</p>
+              <div
+                className="mt-4 rounded-xl bg-indigo-50 border border-indigo-100 px-4 py-3 text-start text-sm leading-6 text-indigo-900"
+                role="note"
+              >
+                <p>{copy.dataPrivacy}</p>
+              </div>
               <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-5">
                 <span className="text-sm font-medium text-indigo-700">{copy.duration}</span>
                 <button

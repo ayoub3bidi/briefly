@@ -8,14 +8,13 @@ const fr = {
   madeBy: 'Réalisé par',
   headline: 'Un projet clair commence par les bonnes questions.',
   intro: 'Quelques questions simples pour transformer votre idée en plan.',
-  finishSameDevice: 'Merci de terminer en une seule fois, sur cet appareil et dans ce navigateur.',
-  whoYouAre:
-    'J’accompagne mes clients pour transformer leurs idées en plan clair et en estimation.',
   language: 'Langue',
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
   duration: 'Environ 10 minutes',
+  dataPrivacy:
+    'Briefly est une application 100 % frontend. Rien n’est envoyé à un serveur. Vos réponses restent uniquement dans ce navigateur (stockage local) et nulle part ailleurs. Effacer les données de ce site supprimera votre progression.',
   storageWarning:
     'Votre progression ne sera pas enregistrée dans ce navigateur. Gardez cette page ouverte jusqu’à la fin.',
   start: 'Commencer',
