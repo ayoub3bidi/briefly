@@ -1,7 +1,7 @@
 {
   "name": "briefly",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "packageManager": "pnpm@10.24.0",
   "scripts": {
@@ -39,6 +39,8 @@
     "typescript": "~7.0.2",
     "vite": "^8.3.6",
     "vitest": "5.1.0",
-    "wrangler": "^4.160.1"
+    "wrangler": "^4.160.1",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0"
   }
 }

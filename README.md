@@ -48,3 +48,18 @@ Add these repository Actions variables to enable the email and WhatsApp export l
 - `VITE_CONTACT_WA`: the WhatsApp phone number in international format.
 
 Keep the API token in GitHub Actions secrets, not in this repository. Contact values are public in the built client application.
+
+## Release
+
+Releases are tag-driven. Push a version tag (SemVer, e.g. `v0.1.0`) to cut an official release:
+
+```sh
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+GitHub Actions then runs the quality checks (format, lint, tests, build), creates a GitHub Release with auto-generated release notes from the conventional commits since the last tag, and deploys the Worker and static assets to Cloudflare.
+
+Commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) format (e.g. `feat:`, `fix:`, `refactor:`, `test:`) — they are validated on pull requests and drive the release changelog.
+
+To trigger a release manually from the Actions tab, use the "Release" workflow and supply the tag to cut.
