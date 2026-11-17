@@ -12,6 +12,7 @@ import { DoneScreen } from './screens/DoneScreen'
 import { isInAppBrowser } from './lib/browser'
 import { useThemeStore } from './store/theme-store'
 import { LanguageMenu } from './components/LanguageMenu'
+import { PaperBackground, PEN_STROKE } from './components/PaperBackground'
 
 function BrandMark() {
   return (
@@ -23,7 +24,7 @@ function BrandMark() {
       </defs>
       <g transform="rotate(-1.2 309 122)">
         <path
-          d="M22 128 C 30 40, 118 14, 112 92 C 108 150, 36 176, 62 128 C 84 88, 150 44, 160 98 C 168 142, 118 160, 140 126 C 156 100, 186 120, 206 122 L 240 121"
+          d={`${PEN_STROKE} L 240 121`}
           fill="none"
           stroke="currentColor"
           strokeWidth="12"
@@ -178,7 +179,8 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative isolate flex min-h-screen flex-col">
+      <PaperBackground />
       <main
         id="app-ui"
         className="flex flex-1 items-start justify-center px-4 py-8 font-sans sm:px-8 sm:py-12 lg:px-12 lg:py-14"

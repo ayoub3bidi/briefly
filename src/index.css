@@ -9,6 +9,33 @@
   --color-line: #e4e4e0;
   --color-muted: #5c5c58;
   --color-error: #c23b22;
+
+  --animate-drift: drift 60s linear infinite;
+  --animate-draw: draw 2.4s cubic-bezier(0.6, 0, 0.3, 1) backwards;
+  --animate-swipe: swipe 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  --animate-float: float 20s ease-in-out infinite alternate;
+
+  @keyframes drift {
+    to {
+      translate: 24px 24px;
+    }
+  }
+  /* Keyframes only define the start, so reduced motion shows the finished drawing. */
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+  @keyframes swipe {
+    from {
+      scale: 0 1;
+    }
+  }
+  @keyframes float {
+    to {
+      translate: 0 -12px;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +45,9 @@
     --color-line: #2f2f2c;
     --color-muted: #a6a6a0;
     --color-error: #ff8a73;
+    --texture-ink: 0.1;
+    --texture-highlight: 0.16;
+    --texture-grain: 0.08;
     color-scheme: dark;
   }
 }
@@ -28,6 +58,9 @@
   --color-line: #2f2f2c;
   --color-muted: #a6a6a0;
   --color-error: #ff8a73;
+  --texture-ink: 0.1;
+  --texture-highlight: 0.16;
+  --texture-grain: 0.08;
   color-scheme: dark;
 }
 
@@ -38,6 +71,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light;
+  --texture-ink: 0.07;
+  --texture-highlight: 0.35;
+  --texture-grain: 0.05;
 }
 
 body {
