@@ -71,20 +71,20 @@ export function DoneScreen({ profile, questions, store, template, language, copy
 
   return (
     <div className="mt-10">
-      <h1 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {copy.doneTitle}
       </h1>
-      <section className="mt-6 rounded-2xl bg-indigo-50 p-5" aria-labelledby="next-steps-title">
-        <h2 id="next-steps-title" className="text-base font-semibold text-indigo-950">
+      <section className="mt-6 rounded-2xl bg-ink/5 p-5" aria-labelledby="next-steps-title">
+        <h2 id="next-steps-title" className="text-base font-semibold text-ink">
           {copy.whatNext}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-indigo-950">{copy.doneNext}</p>
+        <p className="mt-2 text-sm leading-6 text-ink">{copy.doneNext}</p>
       </section>
       <div className="mt-6 grid grid-cols-2 gap-3">
         <button
           type="button"
           onClick={() => setConfirmReset(true)}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 text-sm font-semibold text-slate-700 cursor-pointer hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-line px-4 text-sm font-semibold text-ink cursor-pointer hover:bg-ink/5 hover:text-ink hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-auto"
         >
           <svg
             aria-hidden="true"
@@ -104,7 +104,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           type="button"
           onClick={() => void downloadPdf()}
           disabled={pdfState === 'preparing'}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white shadow-sm cursor-pointer transition-[background-color,box-shadow] duration-300 ease-in-out hover:bg-indigo-600 hover:shadow-lg active:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-ink px-5 text-sm font-semibold text-paper shadow-sm cursor-pointer transition-[background-color,box-shadow] duration-300 ease-in-out hover:bg-ink/85 hover:shadow-lg active:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70 sm:w-auto"
         >
           <svg aria-hidden="true" className="size-5 shrink-0" viewBox="0 0 24 24" fill="none">
             <path
@@ -118,7 +118,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           {pdfState === 'preparing' ? copy.pdfPreparing : copy.downloadPdf}
         </button>
         {pdfState === 'failed' && (
-          <p role="status" className="col-span-2 text-sm text-rose-700">
+          <p role="status" className="col-span-2 text-sm text-error">
             {copy.pdfFailed}
           </p>
         )}
@@ -133,18 +133,18 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           onClick={(event) => event.stopPropagation()}
         />
         <div
-          className={`relative z-10 w-full max-w-md rounded-2xl bg-white shadow-2xl mx-4 transition-all duration-300 ease-out ${confirmReset ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+          className={`relative z-10 w-full max-w-md rounded-2xl bg-paper shadow-2xl mx-4 transition-all duration-300 ease-out ${confirmReset ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
           onClick={(event) => event.stopPropagation()}
         >
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-slate-950">{copy.startOver}</h2>
-            <p className="mt-2 text-sm text-slate-600">{copy.startOverConfirm}</p>
+            <h2 className="text-lg font-semibold text-ink">{copy.startOver}</h2>
+            <p className="mt-2 text-sm text-muted">{copy.startOverConfirm}</p>
           </div>
-          <div className="border-t border-slate-200 p-4 flex justify-end gap-3">
+          <div className="border-t border-line p-4 flex justify-end gap-3">
             <button
               type="button"
               onClick={() => setConfirmReset(false)}
-              className="min-h-11 rounded-xl px-4 text-sm font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              className="min-h-11 rounded-xl px-4 text-sm font-medium text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
             >
               {copy.cancel}
             </button>
@@ -154,7 +154,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
                 store.getState().reset()
                 setConfirmReset(false)
               }}
-              className="min-h-11 rounded-xl bg-rose-600 px-5 text-sm font-medium text-white hover:bg-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
+              className="min-h-11 rounded-xl bg-error px-5 text-sm font-medium text-paper hover:bg-error/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error"
             >
               {copy.confirmStartOver}
             </button>
@@ -162,7 +162,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
         </div>
       </div>
 
-      <section className="mt-7 border-t border-slate-100 pt-5">
+      <section className="mt-7 border-t border-line pt-5">
         {(contactEmail || contactWhatsApp) && (
           <div className="flex flex-wrap items-center gap-3">
             {contactWhatsApp && (
@@ -170,7 +170,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-green-200 px-5 text-sm font-semibold text-green-800 transition-colors hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+                className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-line px-5 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
                 <svg
                   aria-hidden="true"
@@ -191,7 +191,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
               <>
                 <a
                   href={emailHref}
-                  className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-indigo-200 px-5 text-sm font-semibold text-indigo-800 transition-colors hover:bg-indigo-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+                  className="inline-flex min-h-12 items-center gap-1.5 rounded-xl border border-ink/40 px-5 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                 >
                   <svg
                     aria-hidden="true"
@@ -212,7 +212,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
                   type="button"
                   onClick={() => void copyContactEmail()}
                   aria-label={`${emailCopied ? copy.copied : copy.copyEmail}: ${contactEmail}`}
-                  className="group relative inline-flex min-h-12 w-full max-w-full items-center justify-center overflow-hidden rounded-xl border border-slate-200 px-6 text-sm font-semibold text-slate-700 cursor-pointer transition-colors duration-200 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 focus-visible:border-indigo-300 focus-visible:bg-indigo-50 focus-visible:text-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 motion-reduce:transition-none sm:w-auto"
+                  className="group relative inline-flex min-h-12 w-full max-w-full items-center justify-center overflow-hidden rounded-xl border border-line px-6 text-sm font-semibold text-ink cursor-pointer transition-colors duration-200 hover:border-ink/40 hover:bg-ink/5 hover:text-ink focus-visible:border-ink/40 focus-visible:bg-ink/5 focus-visible:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none sm:w-auto"
                 >
                   <svg
                     aria-hidden="true"
@@ -245,9 +245,9 @@ export function DoneScreen({ profile, questions, store, template, language, copy
           </div>
         )}
         {contactEmail ? (
-          <p className="mt-3 text-sm leading-6 text-slate-600">{copy.emailAttachHint}</p>
+          <p className="mt-3 text-sm leading-6 text-muted">{copy.emailAttachHint}</p>
         ) : (
-          <p className="text-sm leading-6 text-slate-600" role="status">
+          <p className="text-sm leading-6 text-muted" role="status">
             {copy.contactNotConfigured}
           </p>
         )}

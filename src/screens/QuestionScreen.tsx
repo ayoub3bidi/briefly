@@ -74,7 +74,7 @@ export function QuestionScreen({
   return (
     <div className="mt-9">
       <div className="mb-7">
-        <div className="mb-2 flex items-center justify-between gap-3 text-sm text-slate-600">
+        <div className="mb-2 flex items-center justify-between gap-3 text-sm text-muted">
           <span>
             {copy.questionProgress
               .replace('{current}', String(index + 1))
@@ -83,7 +83,7 @@ export function QuestionScreen({
           <span aria-hidden="true">{Math.round(((index + 1) / questions.length) * 100)}%</span>
         </div>
         <div
-          className="h-2 overflow-hidden rounded-full bg-slate-100"
+          className="h-2 overflow-hidden rounded-full bg-line"
           role="progressbar"
           aria-label={copy.progress}
           aria-valuemin={1}
@@ -91,22 +91,22 @@ export function QuestionScreen({
           aria-valuenow={index + 1}
         >
           <div
-            className="h-full rounded-full bg-indigo-700 transition-all"
+            className="h-full rounded-full bg-ink transition-all"
             style={{ width: `${((index + 1) / questions.length) * 100}%` }}
           />
         </div>
       </div>
 
-      <h1 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-3xl">
+      <h1 className="text-2xl font-semibold leading-tight tracking-tight text-ink sm:text-3xl">
         {question.label[language]}
       </h1>
       {question.help && (
-        <p className="mt-3 text-base leading-7 text-slate-600">
+        <p className="mt-3 text-base leading-7 text-muted">
           {question.help[language] ?? question.help.en}
         </p>
       )}
       {question.example && (
-        <details className="mt-4 rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-950">
+        <details className="mt-4 rounded-xl bg-ink/5 px-4 py-3 text-sm text-ink">
           <summary className="cursor-pointer font-semibold">{copy.seeExample}</summary>
           <p className="mt-3 leading-6">{question.example[language] ?? question.example.en}</p>
         </details>
@@ -120,7 +120,7 @@ export function QuestionScreen({
             value={textValue}
             onChange={(event) => update(event.target.value)}
             rows={5}
-            className="user-text min-h-32 w-full rounded-xl border border-slate-300 p-4 text-start leading-7 text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+            className="user-text min-h-32 w-full rounded-xl border border-line p-4 text-start leading-7 text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
           />
         )}
         {question.type === 'features' && (
@@ -131,7 +131,7 @@ export function QuestionScreen({
             aria-label={question.label[language]}
             value={textValue}
             onChange={(event) => update(event.target.value)}
-            className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+            className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
           />
         )}
         {question.id === 'roles' && (
@@ -151,7 +151,7 @@ export function QuestionScreen({
             return (
               <div className="space-y-3">
                 {entries.map((entry, entryIndex) => (
-                  <div key={entryIndex} className="rounded-xl border border-slate-200 p-3">
+                  <div key={entryIndex} className="rounded-xl border border-line p-3">
                     <div className="flex gap-2">
                       <input
                         ref={(node) => {
@@ -171,12 +171,12 @@ export function QuestionScreen({
                           )
                         }
                         placeholder={placeholder}
-                        className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-slate-300 px-3 text-start"
+                        className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-line px-3 text-start"
                       />
                       <button
                         type="button"
                         onClick={() => updateEntries(entries.filter((_, i) => i !== entryIndex))}
-                        className="min-h-12 rounded-lg px-3 text-sm font-medium text-rose-700 hover:bg-rose-50"
+                        className="min-h-12 rounded-lg px-3 text-sm font-medium text-error hover:bg-error/10"
                       >
                         {copy.remove}
                       </button>
@@ -192,7 +192,7 @@ export function QuestionScreen({
                         )
                       }
                       placeholder={copy.itemNote}
-                      className="user-text mt-2 min-h-11 w-full rounded-lg border border-slate-300 px-3 text-start"
+                      className="user-text mt-2 min-h-11 w-full rounded-lg border border-line px-3 text-start"
                     />
                   </div>
                 ))}
@@ -202,7 +202,7 @@ export function QuestionScreen({
                     pendingFocusIndex.current = entries.length
                     updateEntries([...entries, { [key]: '' }])
                   }}
-                  className="min-h-11 rounded-lg px-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
+                  className="min-h-11 rounded-lg px-3 text-sm font-semibold text-ink hover:bg-ink/5"
                 >
                   + {copy.addItem}
                 </button>
@@ -220,7 +220,7 @@ export function QuestionScreen({
             return (
               <label
                 key={option.id}
-                className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3 text-start hover:border-indigo-300 has-[:checked]:border-indigo-700 has-[:checked]:bg-indigo-50"
+                className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3 text-start hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-highlighter has-[:checked]:text-on-highlight"
               >
                 <input
                   type={multi ? 'checkbox' : 'radio'}
@@ -245,9 +245,9 @@ export function QuestionScreen({
                       )
                     else update(option.id)
                   }}
-                  className="h-4 w-4 accent-indigo-700"
+                  className="h-4 w-4 accent-on-highlight"
                 />
-                <span className="text-sm text-slate-800">{option.label[language]}</span>
+                <span className="text-sm">{option.label[language]}</span>
               </label>
             )
           })}
@@ -259,7 +259,7 @@ export function QuestionScreen({
               value={typeof structured.note === 'string' ? structured.note : ''}
               onChange={(event) => update({ ...structured, note: event.target.value })}
               rows={3}
-              className="user-text min-h-24 w-full rounded-xl border border-slate-300 p-4 text-start"
+              className="user-text min-h-24 w-full rounded-xl border border-line p-4 text-start"
             />
           )}
       </div>
@@ -268,23 +268,23 @@ export function QuestionScreen({
         type="button"
         aria-pressed={answer.notSure === true}
         onClick={() => setAnswer(question.id, answer.notSure ? {} : { notSure: true })}
-        className={`mt-5 min-h-11 rounded-lg px-3 text-sm font-medium ${answer.notSure ? 'bg-indigo-100 text-indigo-900' : 'text-slate-600 hover:bg-slate-100'}`}
+        className={`mt-5 min-h-11 rounded-lg px-3 text-sm font-medium ${answer.notSure ? 'bg-highlighter text-on-highlight' : 'text-muted hover:bg-ink/5'}`}
       >
         {copy.notSure}
       </button>
 
-      <div className="mt-8 flex items-center justify-between gap-4 border-t border-slate-100 pt-5">
+      <div className="mt-8 flex items-center justify-between gap-4 border-t border-line pt-5">
         <button
           type="button"
           onClick={back}
-          className="min-h-12 rounded-xl px-4 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          className="min-h-12 rounded-xl px-4 text-sm font-semibold text-ink hover:bg-ink/5"
         >
           {copy.back}
         </button>
         <button
           type="button"
           onClick={next}
-          className="min-h-12 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white hover:bg-indigo-800"
+          className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink/85"
         >
           {index === questions.length - 1 ? copy.reviewTitle : copy.next}
         </button>

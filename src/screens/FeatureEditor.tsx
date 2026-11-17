@@ -35,7 +35,7 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
     <div>
       <div className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2">
         {features.map((feature, index) => (
-          <fieldset key={feature.id} className="min-w-0 rounded-xl border border-slate-200 p-3">
+          <fieldset key={feature.id} className="min-w-0 rounded-xl border border-line p-3">
             <legend className="sr-only">
               {copy.featureTitle} {index + 1}
             </legend>
@@ -60,13 +60,13 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
                       )
                     }
                     placeholder={copy.featureTitle}
-                    className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-slate-300 px-3 text-start"
+                    className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-line px-3 text-start"
                   />
                   <button
                     type="button"
                     aria-label={`${copy.remove} ${index + 1}`}
                     onClick={() => onChange(features.filter((_, i) => i !== index))}
-                    className="min-h-12 shrink-0 rounded-lg px-3 text-sm font-medium text-rose-700 hover:bg-rose-50"
+                    className="min-h-12 shrink-0 rounded-lg px-3 text-sm font-medium text-error hover:bg-error/10"
                   >
                     {copy.remove}
                   </button>
@@ -77,7 +77,7 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
                     disabled={index === 0}
                     aria-label={`${copy.moveUp} ${index + 1}`}
                     onClick={() => move(index, -1)}
-                    className="min-h-12 min-w-12 rounded-lg text-lg text-slate-700 hover:bg-slate-100 disabled:opacity-30"
+                    className="min-h-12 min-w-12 rounded-lg text-lg text-ink hover:bg-ink/5 disabled:opacity-30"
                   >
                     ↑
                   </button>
@@ -86,7 +86,7 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
                     disabled={index === features.length - 1}
                     aria-label={`${copy.moveDown} ${index + 1}`}
                     onClick={() => move(index, 1)}
-                    className="min-h-12 min-w-12 rounded-lg text-lg text-slate-700 hover:bg-slate-100 disabled:opacity-30"
+                    className="min-h-12 min-w-12 rounded-lg text-lg text-ink hover:bg-ink/5 disabled:opacity-30"
                   >
                     ↓
                   </button>
@@ -105,9 +105,9 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
                     )
                   }
                   placeholder={copy.featureDescription}
-                  className="user-text mt-2 min-h-11 w-full rounded-lg border border-slate-300 px-3 text-start"
+                  className="user-text mt-2 min-h-11 w-full rounded-lg border border-line px-3 text-start"
                 />
-                <label className="mt-3 block text-start text-sm font-medium text-slate-700">
+                <label className="mt-3 block text-start text-sm font-medium text-ink">
                   {copy.priority}
                   <select
                     aria-label={`${copy.priority} ${index + 1}`}
@@ -120,7 +120,7 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
                         ),
                       )
                     }}
-                    className="mt-1 min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 text-start"
+                    className="mt-1 min-h-11 w-full rounded-lg border border-line bg-paper px-3 text-start"
                   >
                     <option value="">{copy.notPrioritized}</option>
                     <option value="must-have">{copy.mustHave}</option>
@@ -143,7 +143,7 @@ export function FeatureEditor({ value, language, copy, onChange }: Props) {
           pendingFocusId.current = feature.id
           onChange([...features, feature])
         }}
-        className="min-h-11 rounded-lg px-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
+        className="min-h-11 rounded-lg px-3 text-sm font-semibold text-ink hover:bg-ink/5"
       >
         + {copy.addItem}
       </button>

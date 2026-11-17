@@ -40,7 +40,7 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
 
   return (
     <div className="mt-9">
-      <h1 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {copy.reviewTitle}
       </h1>
       <div className="mt-6 space-y-4">
@@ -85,26 +85,26 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
           }
 
           return (
-            <article key={question.id} className="rounded-2xl border border-slate-200 p-4 sm:p-5">
+            <article key={question.id} className="rounded-2xl border border-line p-4 sm:p-5">
               <div className="flex items-start justify-between gap-3">
-                <h2 className="text-start text-base font-semibold leading-6 text-slate-900">
+                <h2 className="text-start text-base font-semibold leading-6 text-ink">
                   {question.label[language]}
                 </h2>
                 <button
                   type="button"
                   onClick={() => onGoBack(index)}
-                  className="min-h-10 shrink-0 rounded-lg px-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
+                  className="min-h-10 shrink-0 rounded-lg px-3 text-sm font-semibold text-ink hover:bg-ink/5"
                 >
                   {copy.goBack}
                 </button>
               </div>
               {(answer.notSure || blank) && (
-                <p className="mt-3 inline-flex rounded-full bg-amber-50 px-3 py-1 text-sm font-medium text-amber-900">
+                <p className="mt-3 inline-flex rounded-full bg-highlighter px-3 py-1 text-sm font-medium text-on-highlight">
                   {answer.notSure ? copy.clientUnsure : copy.leftBlank}
                 </p>
               )}
               {display.length > 0 && (
-                <ul className="mt-3 list-inside list-disc space-y-1 text-start text-sm leading-6 text-slate-700">
+                <ul className="mt-3 list-inside list-disc space-y-1 text-start text-sm leading-6 text-ink">
                   {display.map((line, itemIndex) => (
                     <li key={`${question.id}-${itemIndex}`} className="whitespace-pre-wrap">
                       {line}
@@ -116,11 +116,11 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
           )
         })}
       </div>
-      <div className="mt-8 flex justify-end border-t border-slate-100 pt-5">
+      <div className="mt-8 flex justify-end border-t border-line pt-5">
         <button
           type="button"
           onClick={onFinish}
-          className="min-h-12 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white hover:bg-indigo-800"
+          className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink/85"
         >
           {copy.finish}
         </button>

@@ -12,6 +12,10 @@ const ar = {
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
+  theme: 'المظهر',
+  themeSystem: 'النظام',
+  themeLight: 'فاتح',
+  themeDark: 'داكن',
   duration: 'حوالي 10 دقائق',
   dataPrivacy:
     'تطبيق Briefly يعمل بالكامل في الواجهة الأمامية. لا يُرسل أي شيء إلى خادم. إجاباتك تبقى فقط في هذا المتصفح (التخزين المحلي) ولا مكان آخر. مسح بيانات هذا الموقع سيحذف تقدمك.',

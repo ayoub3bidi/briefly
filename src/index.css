@@ -2,6 +2,33 @@
 
 @theme {
   --font-sans: 'Cairo Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #141414;
+  --color-highlighter: #ffe14d;
+  --color-on-highlight: #141414;
+  --color-paper: #ffffff;
+  --color-line: #e4e4e0;
+  --color-muted: #5c5c58;
+  --color-error: #c23b22;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-ink: #f4f4f0;
+    --color-paper: #161615;
+    --color-line: #2f2f2c;
+    --color-muted: #a6a6a0;
+    --color-error: #ff8a73;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-ink: #f4f4f0;
+  --color-paper: #161615;
+  --color-line: #2f2f2c;
+  --color-muted: #a6a6a0;
+  --color-error: #ff8a73;
+  color-scheme: dark;
 }
 
 :root {
@@ -10,14 +37,24 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #172033;
-  background: #f8fafc;
+  color-scheme: light;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-highlighter);
+  color: var(--color-on-highlight);
+}
+
+[dir='rtl'] .brand-mark {
+  transform: scaleX(-1);
 }
 
 button,

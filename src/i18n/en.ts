@@ -10,6 +10,10 @@ const en = {
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
+  theme: 'Theme',
+  themeSystem: 'System',
+  themeLight: 'Light',
+  themeDark: 'Dark',
   duration: 'About 10 minutes',
   dataPrivacy:
     'Briefly is a purely frontend app. Nothing is sent to a server. Your answers live only in this browser’s local storage and nowhere else. Clearing this site’s data will erase your progress.',

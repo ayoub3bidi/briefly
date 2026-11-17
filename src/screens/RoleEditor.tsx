@@ -27,7 +27,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
         {question.options?.map((option) => (
           <label
             key={option.id}
-            className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3 text-start hover:border-indigo-300 has-[:checked]:border-indigo-700 has-[:checked]:bg-indigo-50"
+            className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3 text-start hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-highlighter has-[:checked]:text-on-highlight"
           >
             <input
               type="checkbox"
@@ -40,15 +40,15 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
                     : [...answer.selected, option.id],
                 })
               }
-              className="h-4 w-4 accent-indigo-700"
+              className="h-4 w-4 accent-on-highlight"
             />
-            <span className="text-sm text-slate-800">{option.label[language]}</span>
+            <span className="text-sm">{option.label[language]}</span>
           </label>
         ))}
       </div>
 
       {answer.custom.map((role, index) => (
-        <fieldset key={role.id} className="rounded-xl border border-slate-200 p-3">
+        <fieldset key={role.id} className="rounded-xl border border-line p-3">
           <legend className="sr-only">
             {copy.customRole} {index + 1}
           </legend>
@@ -64,7 +64,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
               value={role.name}
               onChange={(event) => updateCustom(role.id, 'name', event.target.value)}
               placeholder={copy.customRole}
-              className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-slate-300 px-3 text-start"
+              className="user-text min-h-12 min-w-0 flex-1 rounded-lg border border-line px-3 text-start"
             />
             <button
               type="button"
@@ -74,7 +74,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
                   custom: answer.custom.filter((item) => item.id !== role.id),
                 })
               }
-              className="min-h-12 rounded-lg px-3 text-sm font-medium text-rose-700 hover:bg-rose-50"
+              className="min-h-12 rounded-lg px-3 text-sm font-medium text-error hover:bg-error/10"
             >
               {copy.remove}
             </button>
@@ -84,7 +84,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
             value={role.note}
             onChange={(event) => updateCustom(role.id, 'note', event.target.value)}
             placeholder={copy.itemNote}
-            className="user-text mt-2 min-h-11 w-full rounded-lg border border-slate-300 px-3 text-start"
+            className="user-text mt-2 min-h-11 w-full rounded-lg border border-line px-3 text-start"
           />
         </fieldset>
       ))}
@@ -96,7 +96,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
           pendingFocusId.current = custom.id
           onChange({ ...answer, custom: [...answer.custom, custom] })
         }}
-        className="min-h-11 rounded-lg px-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
+        className="min-h-11 rounded-lg px-3 text-sm font-semibold text-ink hover:bg-ink/5"
       >
         + {copy.addCustomRole}
       </button>

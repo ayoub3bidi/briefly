@@ -22,3 +22,4 @@ Recorded 12 November 2026. Browser checks below use desktop Chrome with mobile v
 - [ ] On Android Chrome, verify print-to-PDF, the mail app handoff, and WhatsApp handoff.
 - [ ] Open the live link from WhatsApp and Facebook on a phone and confirm the banner and external-browser handoff behave as expected.
 - [ ] Test actual private/incognito browsing on iOS and Android.
+- [ ] Theme: light, dark, and System (follows OS) render correctly on iOS Safari and Android; the toggle choice survives a reload with no flash; the header logo mirrors in Arabic (RTL).

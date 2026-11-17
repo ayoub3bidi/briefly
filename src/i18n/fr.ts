@@ -12,6 +12,10 @@ const fr = {
   langEnglish: 'English',
   langFrench: 'Français',
   langArabic: 'العربية',
+  theme: 'Thème',
+  themeSystem: 'Système',
+  themeLight: 'Clair',
+  themeDark: 'Sombre',
   duration: 'Environ 10 minutes',
   dataPrivacy:
     'Briefly est une application 100 % frontend. Rien n’est envoyé à un serveur. Vos réponses restent uniquement dans ce navigateur (stockage local) et nulle part ailleurs. Effacer les données de ce site supprimera votre progression.',

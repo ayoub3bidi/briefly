@@ -10,6 +10,71 @@ import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
 import { DoneScreen } from './screens/DoneScreen'
 import { isInAppBrowser } from './lib/browser'
+import { useThemeStore, type Theme } from './store/theme-store'
+
+const nextTheme: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' }
+
+function BrandMark() {
+  return (
+    <svg viewBox="0 0 420 200" className="brand-mark h-9 w-auto" aria-hidden="true">
+      <defs>
+        <clipPath id="bm-hl">
+          <rect x="214" y="92" width="190" height="60" rx="10" />
+        </clipPath>
+      </defs>
+      <g transform="rotate(-1.2 309 122)">
+        <path
+          d="M22 128 C 30 40, 118 14, 112 92 C 108 150, 36 176, 62 128 C 84 88, 150 44, 160 98 C 168 142, 118 160, 140 126 C 156 100, 186 120, 206 122 L 240 121"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="12"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <rect x="214" y="92" width="190" height="60" rx="10" fill="var(--color-highlighter)" />
+        <g clipPath="url(#bm-hl)">
+          <path
+            d="M180 119 C 190 120, 198 121, 206 122 L 384 121"
+            fill="none"
+            stroke="var(--color-on-highlight)"
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+      </g>
+    </svg>
+  )
+}
+
+function ThemeIcon({ theme }: { theme: Theme }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {theme === 'light' && (
+        <>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </>
+      )}
+      {theme === 'dark' && <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />}
+      {theme === 'system' && (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" />
+        </>
+      )}
+    </svg>
+  )
+}
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
@@ -30,6 +95,8 @@ function App() {
   const setScreen = useStore(formStore, (state) => state.setScreen)
   const [nameError, setNameError] = useState(false)
   const saveLanguage = useLanguageStore((state) => state.setLanguage)
+  const theme = useThemeStore((state) => state.theme)
+  const setTheme = useThemeStore((state) => state.setTheme)
 
   const storageAvailable = useStore(
     getStorageStatus(`briefly:${template}`),
@@ -44,6 +111,17 @@ function App() {
     document.title = copy.pageTitle
     saveLanguage(language)
   }, [copy.pageTitle, language, saveLanguage])
+
+  useEffect(() => {
+    if (theme === 'system') delete document.documentElement.dataset.theme
+    else document.documentElement.dataset.theme = theme
+  }, [theme])
+
+  const themeLabel: Record<Theme, string> = {
+    system: copy.themeSystem,
+    light: copy.themeLight,
+    dark: copy.themeDark,
+  }
 
   function changeLanguage(nextLanguage: Lang) {
     const params = new URLSearchParams(window.location.search)
@@ -83,29 +161,43 @@ function App() {
         id="app-ui"
         className="flex flex-1 items-start justify-center px-4 py-8 font-sans sm:px-8 sm:py-12 lg:px-12 lg:py-14"
       >
-        <section className="w-full max-w-6xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-12">
+        <section className="w-full max-w-6xl rounded-3xl border border-line bg-paper p-6 sm:p-8 lg:p-12">
           <header className="flex items-center justify-between gap-4">
-            <p className="text-sm font-semibold tracking-wide text-indigo-700">
-              {copy.brand} <span className="text-slate-400">/ {copy.category}</span>
+            <p className="flex items-center gap-2 text-sm font-semibold tracking-wide text-ink">
+              <BrandMark />
+              <span>
+                {copy.brand} <span className="text-muted">/ {copy.category}</span>
+              </span>
             </p>
-            <label className="sr-only" htmlFor="language-picker">
-              {copy.language}
-            </label>
-            <select
-              id="language-picker"
-              value={language}
-              onChange={(event) => changeLanguage(event.target.value as Lang)}
-              className="min-h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            >
-              <option value="en">{copy.langEnglish}</option>
-              <option value="fr">{copy.langFrench}</option>
-              <option value="ar">{copy.langArabic}</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setTheme(nextTheme[theme])}
+                aria-label={`${copy.theme}: ${themeLabel[theme]}`}
+                title={`${copy.theme}: ${themeLabel[theme]}`}
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              >
+                <ThemeIcon theme={theme} />
+              </button>
+              <label className="sr-only" htmlFor="language-picker">
+                {copy.language}
+              </label>
+              <select
+                id="language-picker"
+                value={language}
+                onChange={(event) => changeLanguage(event.target.value as Lang)}
+                className="min-h-11 rounded-lg border border-line bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              >
+                <option value="en">{copy.langEnglish}</option>
+                <option value="fr">{copy.langFrench}</option>
+                <option value="ar">{copy.langArabic}</option>
+              </select>
+            </div>
           </header>
 
           {!storageAvailable && (
             <p
-              className="mt-6 rounded-xl bg-amber-50 px-4 py-3 text-start text-sm leading-6 text-amber-900"
+              className="mt-6 rounded-xl bg-highlighter px-4 py-3 text-start text-sm leading-6 text-on-highlight"
               role="status"
             >
               {copy.storageWarning}
@@ -114,7 +206,7 @@ function App() {
 
           {inAppBrowser && (
             <p
-              className="mt-6 rounded-xl bg-indigo-50 px-4 py-3 text-start text-sm leading-6 text-indigo-950"
+              className="mt-6 rounded-xl bg-ink/5 px-4 py-3 text-start text-sm leading-6 text-ink"
               role="status"
             >
               {copy.inAppBrowser}
@@ -123,22 +215,22 @@ function App() {
 
           {screen === 'intro' && (
             <>
-              <h1 className="mt-10 text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
+              <h1 className="mt-10 text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">
                 {copy.headline}
               </h1>
-              <p className="mt-5 text-lg leading-8 text-slate-600">{copy.intro}</p>
+              <p className="mt-5 text-lg leading-8 text-muted">{copy.intro}</p>
               <div
-                className="mt-4 rounded-xl bg-indigo-50 border border-indigo-100 px-4 py-3 text-start text-sm leading-6 text-indigo-900"
+                className="mt-4 rounded-xl bg-ink/5 border border-line px-4 py-3 text-start text-sm leading-6 text-ink"
                 role="note"
               >
                 <p>{copy.dataPrivacy}</p>
               </div>
-              <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-5">
-                <span className="text-sm font-medium text-indigo-700">{copy.duration}</span>
+              <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
+                <span className="text-sm font-medium text-ink">{copy.duration}</span>
                 <button
                   type="button"
                   onClick={() => setScreen('about')}
-                  className="min-h-12 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white transition-colors hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+                  className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper transition-colors hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                 >
                   {copy.start}
                 </button>
@@ -148,16 +240,16 @@ function App() {
 
           {screen === 'about' && (
             <>
-              <h1 className="mt-10 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              <h1 className="mt-10 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {copy.aboutTitle}
               </h1>
               <form className="mt-8 space-y-5" noValidate onSubmit={saveAboutYou}>
                 <div>
                   <label
-                    className="mb-2 block text-start text-sm font-medium text-slate-700"
+                    className="mb-2 block text-start text-sm font-medium text-ink"
                     htmlFor="client-name"
                   >
-                    {copy.name} <span className="text-rose-700">*</span>
+                    {copy.name} <span className="text-error">*</span>
                   </label>
                   <input
                     id="client-name"
@@ -171,17 +263,17 @@ function App() {
                       setProfile({ ...profile, name: event.target.value })
                       setNameError(false)
                     }}
-                    className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                    className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
                   {nameError && (
-                    <p className="mt-2 text-sm text-rose-700" id="name-error">
+                    <p className="mt-2 text-sm text-error" id="name-error">
                       {copy.nameRequired}
                     </p>
                   )}
                 </div>
                 <div>
                   <label
-                    className="mb-2 block text-start text-sm font-medium text-slate-700"
+                    className="mb-2 block text-start text-sm font-medium text-ink"
                     htmlFor="client-company"
                   >
                     {copy.company}
@@ -192,12 +284,12 @@ function App() {
                     autoComplete="organization"
                     value={profile.company}
                     onChange={(event) => setProfile({ ...profile, company: event.target.value })}
-                    className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                    className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
                 </div>
                 <div>
                   <label
-                    className="mb-2 block text-start text-sm font-medium text-slate-700"
+                    className="mb-2 block text-start text-sm font-medium text-ink"
                     htmlFor="client-email"
                   >
                     {copy.email}
@@ -209,12 +301,12 @@ function App() {
                     autoComplete="email"
                     value={profile.email}
                     onChange={(event) => setProfile({ ...profile, email: event.target.value })}
-                    className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                    className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
                 </div>
                 <div>
                   <label
-                    className="mb-2 block text-start text-sm font-medium text-slate-700"
+                    className="mb-2 block text-start text-sm font-medium text-ink"
                     htmlFor="client-phone"
                   >
                     {copy.phone}
@@ -226,12 +318,12 @@ function App() {
                     autoComplete="tel"
                     value={profile.phone}
                     onChange={(event) => setProfile({ ...profile, phone: event.target.value })}
-                    className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                    className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
                 </div>
                 <div>
                   <label
-                    className="mb-2 block text-start text-sm font-medium text-slate-700"
+                    className="mb-2 block text-start text-sm font-medium text-ink"
                     htmlFor="project-name"
                   >
                     {copy.projectName}
@@ -243,20 +335,20 @@ function App() {
                     onChange={(event) =>
                       setProfile({ ...profile, projectName: event.target.value })
                     }
-                    className="user-text min-h-12 w-full rounded-xl border border-slate-300 px-4 text-start text-slate-900 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                    className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
                 </div>
                 <div className="flex items-center justify-between gap-4 pt-3">
                   <button
                     type="button"
                     onClick={() => setScreen('intro')}
-                    className="min-h-12 rounded-xl px-4 text-sm font-semibold text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+                    className="min-h-12 rounded-xl px-4 text-sm font-semibold text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                   >
                     {copy.back}
                   </button>
                   <button
                     type="submit"
-                    className="min-h-12 rounded-xl bg-indigo-700 px-5 text-sm font-semibold text-white transition-colors hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+                    className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper transition-colors hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                   >
                     {copy.continue}
                   </button>
@@ -302,11 +394,11 @@ function App() {
           )}
         </section>
       </main>
-      <footer className="mx-auto w-full max-w-6xl px-4 pb-6 text-center text-sm text-slate-500 sm:px-8 lg:px-12">
+      <footer className="mx-auto w-full max-w-6xl px-4 pb-6 text-center text-sm text-muted sm:px-8 lg:px-12">
         © {copyrightYear} {copy.allRightsReserved} {copy.madeBy}{' '}
         <a
           href="https://ayoub3bidi.me"
-          className="font-medium text-slate-700 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-indigo-700 hover:decoration-indigo-300 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+          className="font-medium text-ink underline decoration-line underline-offset-2 transition-colors hover:text-ink hover:decoration-ink focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         >
           Ayoub Abidi
         </a>
