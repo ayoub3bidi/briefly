@@ -97,6 +97,21 @@ describe('DoneScreen start over', () => {
     expect(localStorage.getItem('briefly:generic')).toBeNull()
   })
 
+  it('keeps the confirm buttons out of reach until the dialog is opened', async () => {
+    const user = userEvent.setup()
+    renderDoneScreen()
+
+    expect(screen.queryByRole('button', { name: 'Yes, start over' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Start over' }))
+    const dialog = screen.getByRole('dialog', { name: 'Start over' })
+
+    // A click on the dialog element itself is a click on its backdrop.
+    await user.click(dialog)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
   it('keeps session data when the user cancels the confirmation', async () => {
     const user = userEvent.setup()
 

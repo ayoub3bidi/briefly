@@ -13,6 +13,12 @@ type Props = {
   copy: Record<string, string>
 }
 
+// Stable identity so React attaches it once. showModal traps focus, makes the page inert, handles
+// Escape, and focuses the first button (Cancel), so the safe choice is the default.
+function openAsModal(node: HTMLDialogElement | null) {
+  if (node && !node.open) node.showModal()
+}
+
 export function DoneScreen({ profile, questions, store, template, language, copy }: Props) {
   const [pdfState, setPdfState] = useState<'idle' | 'preparing' | 'failed'>('idle')
   const [createdAt] = useState(() => new Date())
@@ -124,20 +130,21 @@ export function DoneScreen({ profile, questions, store, template, language, copy
         )}
       </div>
 
-      <div
-        className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ease-out ${confirmReset ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-        onClick={() => setConfirmReset(false)}
-      >
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out"
-          onClick={(event) => event.stopPropagation()}
-        />
-        <div
-          className={`relative z-10 w-full max-w-md rounded-2xl bg-paper shadow-2xl mx-4 transition-all duration-300 ease-out ${confirmReset ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
-          onClick={(event) => event.stopPropagation()}
+      {/* Mounted only while open: a hidden-but-mounted confirm stayed keyboard-reachable. */}
+      {confirmReset && (
+        <dialog
+          ref={openAsModal}
+          aria-labelledby="start-over-title"
+          onClose={() => setConfirmReset(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) event.currentTarget.close()
+          }}
+          className="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl bg-paper text-ink shadow-2xl backdrop:bg-black/40 backdrop:backdrop-blur-sm"
         >
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-ink">{copy.startOver}</h2>
+            <h2 id="start-over-title" className="text-lg font-semibold text-ink">
+              {copy.startOver}
+            </h2>
             <p className="mt-2 text-sm text-muted">{copy.startOverConfirm}</p>
           </div>
           <div className="border-t border-line p-4 flex justify-end gap-3">
@@ -159,8 +166,8 @@ export function DoneScreen({ profile, questions, store, template, language, copy
               {copy.confirmStartOver}
             </button>
           </div>
-        </div>
-      </div>
+        </dialog>
+      )}
 
       <section className="mt-7 border-t border-line pt-5">
         {(contactEmail || contactWhatsApp) && (
