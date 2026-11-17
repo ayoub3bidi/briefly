@@ -11,7 +11,6 @@ const en = {
   langFrench: 'Français',
   langArabic: 'العربية',
   theme: 'Theme',
-  themeSystem: 'System',
   themeLight: 'Light',
   themeDark: 'Dark',
   duration: 'About 10 minutes',

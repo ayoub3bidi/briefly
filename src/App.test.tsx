@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { loadFormConfig } from './data'
 import { getBrieflyStore } from './store/briefly-store'
+import { useThemeStore } from './store/theme-store'
 
 function setRoute(search: string) {
   window.history.replaceState({}, '', `/${search}`)
@@ -34,6 +35,20 @@ describe('Briefly flow', () => {
     resetDraft('generic')
   })
 
+  it('toggles the theme between light and dark only', async () => {
+    const user = userEvent.setup()
+    useThemeStore.getState().setTheme('system')
+    render(<App />)
+
+    const toggle = screen.getByRole('button', { name: 'Theme: Light' })
+    await user.click(toggle)
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark')
+    expect(toggle).toHaveAccessibleName('Theme: Dark')
+    await user.click(toggle)
+    expect(document.documentElement).toHaveAttribute('data-theme', 'light')
+    expect(toggle).toHaveAccessibleName('Theme: Light')
+  })
+
   it('validates the required name, saves real answers, reviews blanks, returns to answers, and exports', async () => {
     const user = userEvent.setup()
     vi.stubEnv('VITE_CONTACT_EMAIL', 'hello@example.com')
@@ -52,10 +67,16 @@ describe('Briefly flow', () => {
     await user.click(screen.getByRole('button', { name: 'Not sure yet' }))
     await user.type(problem, 'Reduce missed customer requests')
 
-    const languagePicker = screen.getByLabelText('Language')
-    await user.selectOptions(languagePicker, 'ar')
+    const languageMenu = screen.getByRole('button', { name: 'Language: English' })
+    await user.click(languageMenu)
+    expect(languageMenu).toHaveAttribute('aria-expanded', 'true')
+    await user.keyboard('{End}{Enter}')
     expect(document.documentElement).toHaveAttribute('dir', 'rtl')
-    await user.selectOptions(languagePicker, 'en')
+    expect(languageMenu).toHaveAttribute('aria-expanded', 'false')
+    expect(languageMenu).toHaveFocus()
+    await user.click(languageMenu)
+    await user.click(screen.getByRole('option', { name: 'English' }))
+    expect(document.documentElement).toHaveAttribute('dir', 'ltr')
     expect(problem).toHaveValue('Reduce missed customer requests')
 
     await user.click(screen.getByRole('button', { name: 'Next' }))

@@ -13,7 +13,6 @@ const ar = {
   langFrench: 'Français',
   langArabic: 'العربية',
   theme: 'المظهر',
-  themeSystem: 'النظام',
   themeLight: 'فاتح',
   themeDark: 'داكن',
   duration: 'حوالي 10 دقائق',

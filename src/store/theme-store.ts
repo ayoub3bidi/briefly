@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createSafeStorage } from './storage'
 
+// 'system' means the user hasn't picked yet, so the OS preference applies.
 export type Theme = 'system' | 'light' | 'dark'
 
 const themes = new Set<Theme>(['system', 'light', 'dark'])

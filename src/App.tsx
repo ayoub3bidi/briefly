@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState, useSyncExternalStore, type FormEvent, type ReactNode } from 'react'
 import { useStore } from 'zustand'
 import { loadFormConfig, resolveLanguage, resolveTemplate } from './data'
 import type { Lang } from './data/types'
@@ -10,9 +10,8 @@ import { QuestionScreen } from './screens/QuestionScreen'
 import { ReviewScreen } from './screens/ReviewScreen'
 import { DoneScreen } from './screens/DoneScreen'
 import { isInAppBrowser } from './lib/browser'
-import { useThemeStore, type Theme } from './store/theme-store'
-
-const nextTheme: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' }
+import { useThemeStore } from './store/theme-store'
+import { LanguageMenu } from './components/LanguageMenu'
 
 function BrandMark() {
   return (
@@ -47,33 +46,57 @@ function BrandMark() {
   )
 }
 
-function ThemeIcon({ theme }: { theme: Theme }) {
+type Mode = 'light' | 'dark'
+
+const themeIcons: Record<Mode, ReactNode> = {
+  light: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </>
+  ),
+  dark: <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />,
+}
+
+const darkQuery = '(prefers-color-scheme: dark)'
+
+function subscribeToOsTheme(onChange: () => void) {
+  const media = window.matchMedia?.(darkQuery)
+  media?.addEventListener('change', onChange)
+  return () => media?.removeEventListener('change', onChange)
+}
+
+const osPrefersDark = () => window.matchMedia?.(darkQuery).matches ?? false
+
+// Both icons stay mounted so the outgoing one can rotate/fade out while the next one rotates in.
+function ThemeIcon({ theme }: { theme: Mode }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {theme === 'light' && (
-        <>
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-        </>
-      )}
-      {theme === 'dark' && <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />}
-      {theme === 'system' && (
-        <>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" />
-        </>
-      )}
-    </svg>
+    <span className="relative h-5 w-5">
+      {(Object.keys(themeIcons) as Mode[]).map((key) => (
+        <svg
+          key={key}
+          viewBox="0 0 24 24"
+          className={`theme-icon absolute inset-0 h-5 w-5 transition-[opacity,rotate,scale] duration-300 ease-out motion-reduce:transition-none ${key === theme ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-50 opacity-0'}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          {themeIcons[key]}
+        </svg>
+      ))}
+    </span>
   )
+}
+
+// Enable color transitions only for the duration of a user-initiated switch.
+function switchTheme(apply: () => void) {
+  const root = document.documentElement
+  root.classList.add('theme-transition')
+  apply()
+  window.setTimeout(() => root.classList.remove('theme-transition'), 300)
 }
 
 function App() {
@@ -117,11 +140,10 @@ function App() {
     else document.documentElement.dataset.theme = theme
   }, [theme])
 
-  const themeLabel: Record<Theme, string> = {
-    system: copy.themeSystem,
-    light: copy.themeLight,
-    dark: copy.themeDark,
-  }
+  const prefersDark = useSyncExternalStore(subscribeToOsTheme, osPrefersDark)
+  // Until the user picks one, 'system' follows the OS; the button always shows the theme in effect.
+  const activeTheme: Mode = theme === 'system' ? (prefersDark ? 'dark' : 'light') : theme
+  const themeLabel: Record<Mode, string> = { light: copy.themeLight, dark: copy.themeDark }
 
   function changeLanguage(nextLanguage: Lang) {
     const params = new URLSearchParams(window.location.search)
@@ -172,26 +194,25 @@ function App() {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setTheme(nextTheme[theme])}
-                aria-label={`${copy.theme}: ${themeLabel[theme]}`}
-                title={`${copy.theme}: ${themeLabel[theme]}`}
+                onClick={() =>
+                  switchTheme(() => setTheme(activeTheme === 'dark' ? 'light' : 'dark'))
+                }
+                aria-label={`${copy.theme}: ${themeLabel[activeTheme]}`}
+                title={`${copy.theme}: ${themeLabel[activeTheme]}`}
                 className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
-                <ThemeIcon theme={theme} />
+                <ThemeIcon theme={activeTheme} />
               </button>
-              <label className="sr-only" htmlFor="language-picker">
-                {copy.language}
-              </label>
-              <select
-                id="language-picker"
+              <LanguageMenu
                 value={language}
-                onChange={(event) => changeLanguage(event.target.value as Lang)}
-                className="min-h-11 rounded-lg border border-line bg-paper px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-              >
-                <option value="en">{copy.langEnglish}</option>
-                <option value="fr">{copy.langFrench}</option>
-                <option value="ar">{copy.langArabic}</option>
-              </select>
+                label={copy.language}
+                onChange={changeLanguage}
+                options={[
+                  { value: 'en', label: copy.langEnglish },
+                  { value: 'fr', label: copy.langFrench },
+                  { value: 'ar', label: copy.langArabic },
+                ]}
+              />
             </div>
           </header>
 

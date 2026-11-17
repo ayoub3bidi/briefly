@@ -13,7 +13,6 @@ const fr = {
   langFrench: 'Français',
   langArabic: 'العربية',
   theme: 'Thème',
-  themeSystem: 'Système',
   themeLight: 'Clair',
   themeDark: 'Sombre',
   duration: 'Environ 10 minutes',
