@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { loadFormConfig } from '../data'
 import { messages } from '../i18n'
 import { BriefPdf } from './BriefPdf'
-import { getPdfAnswerLines } from './pdf-content'
+import { getPdfAnswerLines, textDirection } from './pdf-content'
 
 function flatten(node: ReactNode): ReactNode[] {
   if (Array.isArray(node)) return node.flatMap(flatten)
@@ -66,5 +66,39 @@ describe('BriefPdf', () => {
     )
     expect(footer).toBeDefined()
     expect((footer as { props: { children: string } }).props.children).toBe('Made with Briefly')
+  })
+
+  it('gives Arabic header text an explicit direction, since react-pdf does not inherit it', () => {
+    const nodes = flatten(
+      BriefPdf({
+        profile: { name: 'ليلى', company: '', email: '', phone: '', projectName: 'متجر إلكتروني' },
+        questions: loadFormConfig('?t=generic').questions,
+        answers: {},
+        template: 'generic',
+        language: 'ar',
+        createdAt: new Date('2026-11-13T10:00:00Z'),
+        copy: messages.ar,
+      }),
+    )
+    const title = nodes.find(
+      (node) =>
+        isValidElement(node) && (node.props as { children?: unknown }).children === 'متجر إلكتروني',
+    ) as { props: { style: Array<Record<string, unknown>> } }
+    const style = Object.assign({}, ...title.props.style)
+    expect(style.direction).toBe('rtl')
+    // Shrink-to-fit box: right alignment would be measured against the page and push text out.
+    expect(style.textAlign).toBe('left')
+  })
+})
+
+describe('textDirection', () => {
+  it.each([
+    ['العملاء', 'rtl'],
+    ['17 نوفمبر 2026', 'rtl'],
+    ['What should it be able to do?', 'ltr'],
+    ['Online ordering | أساسية', 'ltr'],
+    ['2026', 'ltr'],
+  ])('reads %s as %s from its first strong character', (text, expected) => {
+    expect(textDirection(text)).toBe(expected)
   })
 })

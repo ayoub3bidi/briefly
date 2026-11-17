@@ -21,8 +21,7 @@ const en = {
   start: 'Start your brief',
   continue: 'Continue',
   nameRequired: 'Please enter your name to continue.',
-  questionsComingSoon: 'Your details are saved.',
-  questionsComingSoonBody: 'Next, we’ll talk about the problem you want to solve.',
+  emailInvalid: 'Please enter a valid email address, or leave it empty.',
   aboutTitle: 'A little about you',
   name: 'Your name',
   company: 'Company (optional)',
@@ -30,7 +29,6 @@ const en = {
   phone: 'WhatsApp or phone (optional)',
   projectName: 'Project name (optional)',
   required: 'Required',
-  optional: 'Optional',
   questionProgress: 'Question {current} of {total}',
   progress: 'Question progress',
   itemName: 'Name',
@@ -41,17 +39,15 @@ const en = {
   next: 'Next',
   notSure: 'Not sure yet',
   seeExample: 'See an example',
-  hideExample: 'Hide example',
   addItem: 'Add another',
   addCustomRole: 'Add a custom role',
   customRole: 'Custom role',
   remove: 'Remove',
-  edit: 'Edit',
   reviewTitle: 'Review your answers',
-  openQuestion: 'This question is still open',
   clientUnsure: 'You were unsure',
   leftBlank: 'Left blank',
   goBack: 'Go back',
+  backToReview: 'Back to review',
   finish: 'Finish',
   startOver: 'Start over',
   startOverConfirm:
@@ -66,10 +62,6 @@ const en = {
   whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here. {next}',
   contactNotConfigured:
     'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
-  whatsappNotConfigured:
-    'WhatsApp sharing is not set up yet. Add VITE_CONTACT_WA to the project environment to enable it.',
-  copyFailed: 'Could not copy. Please select and copy the text manually.',
-  copyText: 'Copy as text',
   copied: 'Copied',
   downloadPdf: 'Download PDF',
   pdfPreparing: 'Preparing your PDF…',
@@ -78,8 +70,6 @@ const en = {
   copyEmail: 'Copy email address',
   sendWhatsapp: 'Send by WhatsApp',
   emailAttachHint: 'Attach the PDF to this email before sending.',
-  iosPrintTip:
-    'On iPhone: tap Share, choose Print, pinch out on the preview, then Share and Save to Files. Copy as text also works well.',
   inAppBrowser: 'For the best experience, open this page in your browser.',
   featureTitle: 'Feature name',
   featureDescription: 'Describe it in one line',
@@ -90,8 +80,6 @@ const en = {
   niceToHave: 'Nice-to-have',
   later: 'Later',
   notPrioritized: 'Not prioritized yet',
-  showMore: 'Show more',
-  showLess: 'Show less',
 } as const
 
 export default en

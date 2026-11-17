@@ -118,6 +118,9 @@ function App() {
   const setProfile = useStore(formStore, (state) => state.setProfile)
   const setScreen = useStore(formStore, (state) => state.setScreen)
   const [nameError, setNameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  // Set when the client jumps from Review to a question, so they can return in one click.
+  const [editingFromReview, setEditingFromReview] = useState(false)
   const saveLanguage = useLanguageStore((state) => state.setLanguage)
   const theme = useThemeStore((state) => state.theme)
   const setTheme = useThemeStore((state) => state.setTheme)
@@ -160,9 +163,16 @@ function App() {
 
   function saveAboutYou(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const form = event.currentTarget
     const name = profile.name.trim()
-    if (!name) {
-      setNameError(true)
+    // The form is noValidate so errors render in our own copy; type="email" still does the parsing.
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement
+    const emailInvalid = profile.email.trim() !== '' && !emailInput.validity.valid
+    setNameError(!name)
+    setEmailError(emailInvalid)
+    if (!name || emailInvalid) {
+      const firstInvalid = form.elements.namedItem(name ? 'email' : 'name') as HTMLInputElement
+      firstInvalid.focus()
       return
     }
 
@@ -174,7 +184,6 @@ function App() {
       phone: profile.phone.trim(),
       projectName: profile.projectName.trim(),
     })
-    setNameError(false)
     setScreen('questions')
   }
 
@@ -323,9 +332,19 @@ function App() {
                     type="email"
                     autoComplete="email"
                     value={profile.email}
-                    onChange={(event) => setProfile({ ...profile, email: event.target.value })}
+                    aria-invalid={emailError}
+                    aria-describedby={emailError ? 'email-error' : undefined}
+                    onChange={(event) => {
+                      setProfile({ ...profile, email: event.target.value })
+                      setEmailError(false)
+                    }}
                     className="user-text min-h-12 w-full rounded-xl border border-line px-4 text-start text-ink outline-none focus:border-ink focus:ring-2 focus:ring-ink/15"
                   />
+                  {emailError && (
+                    <p className="mt-2 text-sm text-error" id="email-error">
+                      {copy.emailInvalid}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -388,6 +407,7 @@ function App() {
               store={formStore}
               onBackToAbout={() => setScreen('about')}
               onFinish={() => setScreen('review')}
+              onBackToReview={editingFromReview ? () => setScreen('review') : undefined}
             />
           )}
 
@@ -399,6 +419,7 @@ function App() {
               store={formStore}
               onGoBack={(index) => {
                 formStore.getState().setQuestionIndex(index)
+                setEditingFromReview(true)
                 setScreen('questions')
               }}
               onFinish={() => setScreen('done')}

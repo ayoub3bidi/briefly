@@ -1,8 +1,8 @@
 # AGENTS.md
 
 Guide for coding agents working on **Briefly**: a frontend-only, client-facing project
-questionnaire. A prospective client answers guided questions, then exports a brief by PDF,
-email (`mailto:`), WhatsApp (`wa.me`), or copy-to-clipboard. Nothing is sent to a server.
+questionnaire. A prospective client answers guided questions, then downloads a PDF brief and
+sends it by email (`mailto:`) or WhatsApp (`wa.me`). Nothing is sent to a server.
 Answers live only in `localStorage`.
 
 Live at `briefly.ayoub3bidi.me` (Cloudflare Workers static assets, SPA fallback, `noindex`).
@@ -50,7 +50,7 @@ src/data/                  Question bank + config
   index.ts                 resolveTemplate, resolveLanguage, loadFormConfig
 src/i18n/                  UI strings: en.ts (source of truth), fr.ts, ar.ts; formatMessage('{key}')
 src/store/                 briefly-store (form state, per template), language-store, theme-store, storage
-src/lib/                   brief-export (plain-text brief + copyText), role-answer, browser (UA sniffing)
+src/lib/                   brief-export (copyText clipboard helper), role-answer, browser (UA sniffing)
 src/print/                 BriefPdf (react-pdf document), pdf-content (answer -> lines)
 src/test/setup.ts          jest-dom + cleanup + localStorage.clear after each test
 ```
@@ -90,20 +90,21 @@ question type:
 | `multi`                 | option id[], or `{ selected: id[], note }` when `allowNote`                                         |
 | id `roles` (special)    | `{ selected: optionId[], custom: { id, name, note }[] }`; legacy array accepted by `readRoleAnswer` |
 
-**Export** (`DoneScreen`) has four paths:
+**Export** (`DoneScreen`) has three paths:
 
 - PDF: dynamic `import('@react-pdf/renderer')` + `BriefPdf`. Cairo `.woff` fonts are bundled
   for Latin and Arabic, and the page is RTL when `lang=ar`.
-- Copy: `formatBriefText`, Markdown, always in **English** for the consultant.
 - Email: `mailto:` to `VITE_CONTACT_EMAIL`.
 - WhatsApp: `wa.me/<digits of VITE_CONTACT_WA>`.
 
+There is deliberately no copy-as-text export. The PDF is the only brief format.
+
 ## Rules and gotchas
 
-- **Answer rendering is written out in three places.** These are `ReviewScreen.tsx`,
-  `lib/brief-export.ts` (English text) and `print/pdf-content.ts` (localized PDF), plus input
-  handling in `QuestionScreen.tsx`. A new question type, or a changed value shape, must update
-  all four. `roles` is special-cased **by id** in each of them.
+- **Answer rendering is written out in two places.** These are `ReviewScreen.tsx` and
+  `print/pdf-content.ts` (localized PDF), plus input handling in `QuestionScreen.tsx`. A new
+  question type, or a changed value shape, must update all three. `roles` is special-cased
+  **by id** in each of them.
 - **Question ids are persistence keys.** Renaming or removing an id silently drops saved
   answers for that question, because the hydrate step filters unknown ids. Ids must also stay
   unique across `core.ts` and every template.

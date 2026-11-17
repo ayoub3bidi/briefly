@@ -94,7 +94,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
         >
           <svg
             aria-hidden="true"
-            className="size-5 shrink-0"
+            className="size-5 shrink-0 rtl:-scale-x-100"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -223,7 +223,7 @@ export function DoneScreen({ profile, questions, store, template, language, copy
                 >
                   <svg
                     aria-hidden="true"
-                    className="size-4 shrink-0 mr-1.5 opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none"
+                    className="size-4 shrink-0 me-1.5 opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

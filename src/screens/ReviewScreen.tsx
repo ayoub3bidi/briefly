@@ -103,7 +103,7 @@ export function ReviewScreen({ questions, language, copy, store, onGoBack, onFin
                   {answer.notSure ? copy.clientUnsure : copy.leftBlank}
                 </p>
               )}
-              {display.length > 0 && (
+              {!answer.notSure && display.length > 0 && (
                 <ul className="mt-3 list-inside list-disc space-y-1 text-start text-sm leading-6 text-ink">
                   {display.map((line, itemIndex) => (
                     <li key={`${question.id}-${itemIndex}`} className="whitespace-pre-wrap">

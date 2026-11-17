@@ -32,7 +32,6 @@ function renderDoneScreen({
     sendWhatsapp: 'Send by WhatsApp',
     copyEmail: 'Copy email address',
     copied: 'Copied',
-    copyFailed: 'Could not copy. Please select and copy the text manually.',
     contactNotConfigured:
       'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
     emailAttachHint: 'Attach the PDF to this email before sending.',

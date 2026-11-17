@@ -49,6 +49,46 @@ describe('Briefly flow', () => {
     expect(toggle).toHaveAccessibleName('Theme: Light')
   })
 
+  it('blocks an invalid email and focuses the first invalid field', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Start your brief' }))
+
+    await user.type(screen.getByLabelText(/Email/), 'not-an-email')
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    expect(screen.getByLabelText(/Your name/)).toHaveFocus()
+    expect(screen.getByText('Please enter a valid email address, or leave it empty.')).toBeVisible()
+
+    await user.type(screen.getByLabelText(/Your name/), 'Client One')
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    const email = screen.getByLabelText(/Email/)
+    expect(email).toHaveFocus()
+    expect(email).toHaveAttribute('aria-invalid', 'true')
+
+    await user.clear(email)
+    await user.type(email, 'client@example.com')
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    expect(screen.getByRole('button', { name: 'Not sure yet' })).toBeInTheDocument()
+  })
+
+  it('keeps a typed answer when "Not sure yet" is toggled on and off', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await enterQuestions(user)
+
+    const problem = screen.getByRole('textbox', {
+      name: 'What problem are you trying to solve, and how do you deal with it today?',
+    })
+    await user.type(problem, 'Draft thoughts')
+    const notSure = screen.getByRole('button', { name: 'Not sure yet' })
+    await user.click(notSure)
+    expect(notSure).toHaveAttribute('aria-pressed', 'true')
+    await user.click(notSure)
+    expect(notSure).toHaveAttribute('aria-pressed', 'false')
+    expect(problem).toHaveValue('Draft thoughts')
+    expect(screen.queryByRole('button', { name: 'Back to review' })).not.toBeInTheDocument()
+  })
+
   it('validates the required name, saves real answers, reviews blanks, returns to answers, and exports', async () => {
     const user = userEvent.setup()
     vi.stubEnv('VITE_CONTACT_EMAIL', 'hello@example.com')
@@ -93,7 +133,7 @@ describe('Briefly flow', () => {
     await user.type(screen.getByRole('textbox', { name: 'Website link 1' }), 'https://example.com')
     await user.click(screen.getByRole('button', { name: /Add another/ }))
     expect(screen.getByRole('textbox', { name: 'Website link 2' })).toHaveFocus()
-    await user.click(screen.getAllByRole('button', { name: 'Remove' })[1])
+    await user.click(screen.getByRole('button', { name: 'Remove 2' }))
     expect(screen.queryByRole('textbox', { name: 'Website link 2' })).not.toBeInTheDocument()
     for (let index = 4; index < loadFormConfig('?t=generic').questions.length - 1; index += 1) {
       await user.click(screen.getByRole('button', { name: 'Next' }))
@@ -109,10 +149,8 @@ describe('Briefly flow', () => {
       }),
     ).toBeInTheDocument()
 
-    for (let index = 1; index < loadFormConfig('?t=generic').questions.length - 1; index += 1) {
-      await user.click(screen.getByRole('button', { name: 'Next' }))
-    }
-    await user.click(screen.getByRole('button', { name: 'Review your answers' }))
+    await user.click(screen.getByRole('button', { name: 'Back to review' }))
+    expect(screen.getByRole('heading', { name: 'Review your answers' })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Finish' }))
     expect(screen.getAllByRole('heading', { name: 'Your brief is ready' }).length).toBeGreaterThan(
       0,

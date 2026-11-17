@@ -49,3 +49,13 @@ export function getPdfAnswerLines(question: Question, answer: Answer, language: 
   }
   return typeof value === 'string' && value.trim() ? [value] : []
 }
+
+const rtlChar = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/
+const strongChar = /[A-Za-z\u00C0-\u024F\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/
+
+// Like HTML dir="auto": a string's base direction comes from its first strong character, so an
+// English answer in an Arabic brief keeps its punctuation where English readers expect it.
+export function textDirection(text: string) {
+  const first = text.match(strongChar)?.[0]
+  return first && rtlChar.test(first) ? 'rtl' : 'ltr'
+}

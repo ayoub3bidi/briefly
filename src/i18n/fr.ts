@@ -23,8 +23,7 @@ const fr = {
   start: 'Commencer',
   continue: 'Continuer',
   nameRequired: 'Veuillez saisir votre nom pour continuer.',
-  questionsComingSoon: 'Vos informations sont enregistrées.',
-  questionsComingSoonBody: 'Ensuite, nous parlerons du problème que vous souhaitez résoudre.',
+  emailInvalid: 'Veuillez saisir une adresse e-mail valide, ou laisser le champ vide.',
   aboutTitle: 'Quelques mots sur vous',
   name: 'Votre nom',
   company: 'Entreprise (facultatif)',
@@ -32,7 +31,6 @@ const fr = {
   phone: 'WhatsApp ou téléphone (facultatif)',
   projectName: 'Nom du projet (facultatif)',
   required: 'Obligatoire',
-  optional: 'Facultatif',
   questionProgress: 'Question {current} sur {total}',
   progress: 'Progression des questions',
   itemName: 'Nom',
@@ -43,17 +41,15 @@ const fr = {
   next: 'Suivant',
   notSure: 'Je ne sais pas encore',
   seeExample: 'Voir un exemple',
-  hideExample: 'Masquer l’exemple',
   addItem: 'Ajouter un élément',
   addCustomRole: 'Ajouter un rôle personnalisé',
   customRole: 'Rôle personnalisé',
   remove: 'Supprimer',
-  edit: 'Modifier',
   reviewTitle: 'Relire vos réponses',
-  openQuestion: 'Cette question reste à préciser',
   clientUnsure: 'Vous n’étiez pas sûr',
   leftBlank: 'Sans réponse',
   goBack: 'Revenir à la question',
+  backToReview: 'Retour à la relecture',
   finish: 'Terminer',
   startOver: 'Recommencer',
   startOverConfirm:
@@ -69,10 +65,6 @@ const fr = {
   whatsappBody: 'Bonjour, j’ai terminé le brief pour {project}. Je joins le PDF ici. {next}',
   contactNotConfigured:
     'Le partage par e-mail n’est pas encore configuré. Ajoutez VITE_CONTACT_EMAIL à l’environnement du projet pour l’activer.',
-  whatsappNotConfigured:
-    'Le partage WhatsApp n’est pas encore configuré. Ajoutez VITE_CONTACT_WA à l’environnement du projet pour l’activer.',
-  copyFailed: 'La copie a échoué. Veuillez sélectionner le texte et le copier manuellement.',
-  copyText: 'Copier le texte',
   copied: 'Copié',
   downloadPdf: 'Télécharger le PDF',
   pdfPreparing: 'Préparation du PDF…',
@@ -81,8 +73,6 @@ const fr = {
   copyEmail: 'Copier l’adresse e-mail',
   sendWhatsapp: 'Envoyer par WhatsApp',
   emailAttachHint: 'Ajoutez le PDF à cet e-mail avant de l’envoyer.',
-  iosPrintTip:
-    'Sur iPhone : touchez Partager, choisissez Imprimer, écartez les doigts sur l’aperçu, puis touchez Partager et Enregistrer dans Fichiers. Copier le texte fonctionne aussi très bien.',
   inAppBrowser: 'Pour profiter de toutes les options, ouvrez cette page dans votre navigateur.',
   featureTitle: 'Nom de la fonctionnalité',
   featureDescription: 'Décrivez-la en une phrase',
@@ -93,8 +83,6 @@ const fr = {
   niceToHave: 'Utile',
   later: 'Plus tard',
   notPrioritized: 'Priorité à définir',
-  showMore: 'Afficher la suite',
-  showLess: 'Afficher moins',
 } satisfies Record<keyof typeof en, string>
 
 export default fr

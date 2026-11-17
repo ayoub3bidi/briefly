@@ -68,6 +68,7 @@ export function RoleEditor({ value, question, language, copy, onChange }: Props)
             />
             <button
               type="button"
+              aria-label={`${copy.remove} ${index + 1}`}
               onClick={() =>
                 onChange({
                   ...answer,

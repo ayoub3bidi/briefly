@@ -33,7 +33,7 @@ describe('RoleEditor', () => {
     await user.type(customRole, 'Courier')
     await user.type(screen.getByRole('textbox', { name: 'Optional note 1' }), 'Deliver orders')
     expect(customRole).toHaveValue('Courier')
-    await user.click(screen.getByRole('button', { name: 'Remove' }))
+    await user.click(screen.getByRole('button', { name: 'Remove 1' }))
     expect(screen.queryByRole('textbox', { name: 'Custom role 1' })).not.toBeInTheDocument()
   })
 

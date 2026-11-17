@@ -14,6 +14,7 @@ type Props = {
   store: BrieflyStore
   onBackToAbout: () => void
   onFinish: () => void
+  onBackToReview?: () => void
 }
 
 type Entry = { name?: string; url?: string; note?: string }
@@ -30,6 +31,7 @@ export function QuestionScreen({
   store,
   onBackToAbout,
   onFinish,
+  onBackToReview,
 }: Props) {
   const index = useStore(store, (state) => state.questionIndex)
   const question = questions[index]
@@ -175,6 +177,7 @@ export function QuestionScreen({
                       />
                       <button
                         type="button"
+                        aria-label={`${copy.remove} ${entryIndex + 1}`}
                         onClick={() => updateEntries(entries.filter((_, i) => i !== entryIndex))}
                         className="min-h-12 rounded-lg px-3 text-sm font-medium text-error hover:bg-error/10"
                       >
@@ -182,7 +185,7 @@ export function QuestionScreen({
                       </button>
                     </div>
                     <input
-                      aria-label={copy.itemNote}
+                      aria-label={`${copy.itemNote} ${entryIndex + 1}`}
                       value={entry.note ?? ''}
                       onChange={(event) =>
                         updateEntries(
@@ -267,7 +270,7 @@ export function QuestionScreen({
       <button
         type="button"
         aria-pressed={answer.notSure === true}
-        onClick={() => setAnswer(question.id, answer.notSure ? {} : { notSure: true })}
+        onClick={() => setAnswer(question.id, { ...answer, notSure: !answer.notSure })}
         className={`mt-5 min-h-11 rounded-lg px-3 text-sm font-medium ${answer.notSure ? 'bg-highlighter text-on-highlight' : 'text-muted hover:bg-ink/5'}`}
       >
         {copy.notSure}
@@ -281,13 +284,24 @@ export function QuestionScreen({
         >
           {copy.back}
         </button>
-        <button
-          type="button"
-          onClick={next}
-          className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink/85"
-        >
-          {index === questions.length - 1 ? copy.reviewTitle : copy.next}
-        </button>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          {onBackToReview && index < questions.length - 1 && (
+            <button
+              type="button"
+              onClick={onBackToReview}
+              className="min-h-12 rounded-xl border border-line px-4 text-sm font-semibold text-ink hover:bg-ink/5"
+            >
+              {copy.backToReview}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={next}
+            className="min-h-12 rounded-xl bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink/85"
+          >
+            {index === questions.length - 1 ? copy.reviewTitle : copy.next}
+          </button>
+        </div>
       </div>
     </div>
   )
