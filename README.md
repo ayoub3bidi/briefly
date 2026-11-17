@@ -42,7 +42,7 @@ To enable GitHub Actions deployments, add these repository Actions secrets:
 - `CLOUDFLARE_API_TOKEN`: a token scoped to the Cloudflare account and the `ayoub3bidi.me` zone with Cloudflare Workers edit access.
 - `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID containing the zone.
 
-Add these repository Actions variables to enable the email and WhatsApp export links:
+Add these repository Actions secrets to enable the email and WhatsApp export links:
 
 - `VITE_CONTACT_EMAIL`: the email address clients should send the brief to.
 - `VITE_CONTACT_WA`: the WhatsApp phone number in international format.
