@@ -13,4 +13,4 @@
 - [ ] Tests are added or updated for the changed behavior
 - [ ] New UI strings and question labels exist in English, French and Arabic
 - [ ] Layout checked in RTL (`?lang=ar`) and in both themes
-- [ ] No new network calls, analytics or third-party scripts
+- [ ] No new network calls (beyond the GitHub star count), analytics or third-party scripts

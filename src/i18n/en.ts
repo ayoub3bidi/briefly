@@ -11,11 +11,12 @@ const en = {
   langFrench: 'Français',
   langArabic: 'العربية',
   theme: 'Theme',
+  starOnGitHub: 'Star on GitHub',
   themeLight: 'Light',
   themeDark: 'Dark',
   duration: 'About 10 minutes',
   dataPrivacy:
-    'Briefly is a purely frontend app. Nothing is sent to a server. Your answers live only in this browser’s local storage and nowhere else. Clearing this site’s data will erase your progress.',
+    'Your answers are never sent to a server. They live only in this browser’s local storage, and clearing this site’s data will erase your progress. The only network request Briefly makes is to GitHub, to show the project’s star count.',
   storageWarning:
     'Your progress won’t be saved in this browser. Keep this page open until you finish.',
   start: 'Start your brief',

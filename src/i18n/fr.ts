@@ -13,11 +13,12 @@ const fr = {
   langFrench: 'Français',
   langArabic: 'العربية',
   theme: 'Thème',
+  starOnGitHub: 'Mettre une étoile sur GitHub',
   themeLight: 'Clair',
   themeDark: 'Sombre',
   duration: 'Environ 10 minutes',
   dataPrivacy:
-    'Briefly est une application 100 % frontend. Rien n’est envoyé à un serveur. Vos réponses restent uniquement dans ce navigateur (stockage local) et nulle part ailleurs. Effacer les données de ce site supprimera votre progression.',
+    'Vos réponses ne sont jamais envoyées à un serveur. Elles restent uniquement dans ce navigateur (stockage local), et effacer les données de ce site supprimera votre progression. La seule requête réseau de Briefly est adressée à GitHub, pour afficher le nombre d’étoiles du projet.',
   storageWarning:
     'Votre progression ne sera pas enregistrée dans ce navigateur. Gardez cette page ouverte jusqu’à la fin.',
   start: 'Commencer',

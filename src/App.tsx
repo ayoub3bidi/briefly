@@ -11,6 +11,7 @@ import { ReviewScreen } from './screens/ReviewScreen'
 import { DoneScreen } from './screens/DoneScreen'
 import { isInAppBrowser } from './lib/browser'
 import { useThemeStore } from './store/theme-store'
+import { GitHubStars } from './components/GitHubStars'
 import { LanguageMenu } from './components/LanguageMenu'
 import { PaperBackground, PEN_STROKE } from './components/PaperBackground'
 
@@ -203,6 +204,7 @@ function App() {
               </span>
             </p>
             <div className="flex items-center gap-2">
+              <GitHubStars label={copy.starOnGitHub} lang={language} />
               <button
                 type="button"
                 onClick={() =>

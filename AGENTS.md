@@ -126,8 +126,9 @@ There is deliberately no copy-as-text export. The PDF is the only brief format.
 - **Env vars** (`VITE_CONTACT_EMAIL`, `VITE_CONTACT_WA`) are baked into the public bundle.
   They are typed in `src/vite-env.d.ts`. Copy `.env.example` to `.env` for local use. Never put
   secrets in `VITE_*`.
-- **Privacy promise.** The intro tells users nothing leaves their browser. Do not add
-  analytics, fetches, or third-party scripts without changing that copy.
+- **Privacy promise.** The intro tells users their answers never leave the browser, and that
+  the only network request is the GitHub star count (`GitHubStars`). Do not add analytics,
+  other fetches, or third-party scripts without changing that copy (`dataPrivacy`).
 - **Tests.** Stores and storage are module singletons. Tests rely on `setup.ts` clearing
   `localStorage`. Follow the existing test files for patterns (`App.test.tsx` drives the full
   flow with `user-event`).

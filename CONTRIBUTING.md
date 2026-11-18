@@ -5,7 +5,7 @@ Thanks for your interest in improving Briefly. This guide covers what you need t
 ## Before you start
 
 - For anything bigger than a small fix, open an issue first so we can agree on the approach.
-- Briefly is frontend-only and promises clients that nothing leaves their browser. Pull requests that add analytics, network calls or third-party scripts will not be accepted unless they also change that promise, after discussion.
+- Briefly is frontend-only and promises clients that their answers never leave their browser. The only network request is the GitHub star count in the header. Pull requests that add analytics, other network calls or third-party scripts will not be accepted unless they also change that promise, after discussion.
 
 ## Setup
 

@@ -19,7 +19,7 @@ Send prospective clients a link. They answer a short set of questions, download 
 
 ## Privacy
 
-Briefly is frontend-only. There is no backend, no analytics and no API calls. Answers live only in the client's `localStorage` until they choose to send the PDF.
+Briefly is frontend-only. There is no backend and no analytics. Answers live only in the client's `localStorage` until they choose to send the PDF. The only network request is a call to the GitHub API for the repository's star count shown in the header (`src/components/GitHubStars.tsx`).
 
 ## Tech stack
 
