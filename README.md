@@ -57,7 +57,7 @@ Briefly is a static site, so it runs on any static host. To run your own instanc
 
    These values are baked into the public bundle, so never put secrets in `VITE_*` variables.
 
-3. **Change the footer credit** in `src/App.tsx` (the "Made by" link).
+3. **Change the footer credit** in `src/App.tsx` (the "Made by" link). The copy speaks as a solo freelancer ("Send this to me and I'll come back…"). For a team voice, edit `doneNext` in `src/i18n/{en,fr,ar}.ts` and the "Walk me through…" label in `src/data/core.ts`.
 4. **Customize the questions** (optional) in `src/data/`. Read the rules in [AGENTS.md](AGENTS.md) first: question ids are persistence keys, and every label needs English, French and Arabic text.
 5. **Deploy**:
    - **Cloudflare Workers**: in `wrangler.jsonc`, replace the `routes` entry with your own domain, or remove `routes` and set `"workers_dev": true`. Then run `pnpm run deploy`.
