@@ -1,15 +1,12 @@
 # Briefly
 
-[![CI](https://github.com/ayoub3bidi/briefly/actions/workflows/ci.yml/badge.svg)](https://github.com/ayoub3bidi/briefly/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Briefly intro screen](docs/screenshot.png)
 
 A guided client questionnaire that turns a project idea into a clear brief.
 
 Send prospective clients a link. They answer a short set of questions, download a PDF brief, and send it to you by email or WhatsApp. Nothing touches a server.
 
 **Live:** [briefly.ayoub3bidi.me](https://briefly.ayoub3bidi.me)
-
-![Briefly intro screen](docs/screenshot.png)
 
 ## Features
 
