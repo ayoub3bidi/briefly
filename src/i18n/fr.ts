@@ -15,6 +15,8 @@ const fr = {
   theme: 'Thème',
   starOnGitHub: 'Mettre une étoile sur GitHub',
   hostedCta: 'Freelance ? Obtenez votre propre version à votre image →',
+  hostedCtaBody:
+    'Bonjour Ayoub,\n\nJe souhaite une version hébergée de Briefly à mon image.\n\nNom :\nEntreprise ou marque :\nSite web :\nLangues souhaitées (anglais, français, arabe) :\nTypes de projets que je réalise (web, mobile, automatisation, autre) :\nAutre chose :\n\nMerci !',
   themeLight: 'Clair',
   themeDark: 'Sombre',
   duration: 'Environ 10 minutes',

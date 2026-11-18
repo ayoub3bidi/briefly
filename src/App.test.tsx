@@ -95,7 +95,9 @@ describe('Briefly flow', () => {
     vi.stubEnv('VITE_CONTACT_WA', '+216 12 345 678')
     render(<App />)
 
-    const hostedHref = 'mailto:contact@ayoub3bidi.me?subject=I%20want%20a%20hosted%20Briefly'
+    const hostedHref = expect.stringMatching(
+      /^mailto:contact@ayoub3bidi\.me\?subject=I%20want%20a%20hosted%20Briefly&body=Hi%20Ayoub%2C/,
+    )
     // Points upstream regardless of the configured contact email.
     expect(screen.getByRole('link', { name: /branded copy/ })).toHaveAttribute('href', hostedHref)
 

@@ -13,6 +13,8 @@ const en = {
   theme: 'Theme',
   starOnGitHub: 'Star on GitHub',
   hostedCta: 'Freelancer? Get your own branded copy →',
+  hostedCtaBody:
+    'Hi Ayoub,\n\nI’d like a hosted Briefly with my own branding.\n\nName:\nBusiness or brand name:\nWebsite:\nLanguages I need (English, French, Arabic):\nProjects I take on (web, mobile, automation, other):\nAnything else:\n\nThanks!',
   themeLight: 'Light',
   themeDark: 'Dark',
   duration: 'About 10 minutes',

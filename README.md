@@ -23,7 +23,7 @@ Briefly is frontend-only. There is no backend and no analytics. Answers live onl
 
 ## Hosted version
 
-Freelancer and want your own branded copy without running it yourself? Email [contact@ayoub3bidi.me](mailto:contact@ayoub3bidi.me?subject=I%20want%20a%20hosted%20Briefly) with the subject "I want a hosted Briefly".
+Freelancer and want your own branded copy without running it yourself? Email [contact@ayoub3bidi.me](<mailto:contact@ayoub3bidi.me?subject=I%20want%20a%20hosted%20Briefly&body=Hi%20Ayoub%2C%0A%0AI%E2%80%99d%20like%20a%20hosted%20Briefly%20with%20my%20own%20branding.%0A%0AName%3A%0ABusiness%20or%20brand%20name%3A%0AWebsite%3A%0ALanguages%20I%20need%20(English%2C%20French%2C%20Arabic)%3A%0AProjects%20I%20take%20on%20(web%2C%20mobile%2C%20automation%2C%20other)%3A%0AAnything%20else%3A%0A%0AThanks!>). The link opens a prefilled message with a few questions to answer.
 
 ## Tech stack
 
