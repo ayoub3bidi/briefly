@@ -2,6 +2,14 @@
   "name": "briefly",
   "private": true,
   "version": "0.2.0",
+  "description": "A guided client questionnaire that turns a project idea into a clear PDF brief.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayoub3bidi/briefly.git"
+  },
+  "homepage": "https://briefly.ayoub3bidi.me",
+  "bugs": "https://github.com/ayoub3bidi/briefly/issues",
   "type": "module",
   "packageManager": "pnpm@10.24.0",
   "scripts": {
