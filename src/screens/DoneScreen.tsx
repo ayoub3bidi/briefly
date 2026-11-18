@@ -28,10 +28,8 @@ export function DoneScreen({ profile, questions, store, template, language, copy
   const contactWhatsApp = (import.meta.env.VITE_CONTACT_WA ?? '').replace(/\D/g, '')
   const project = profile.projectName || profile.name
   const emailSubject = copy.emailSubject.replace('{project}', project)
-  const emailBody = copy.emailBody.replace('{next}', copy.doneNext)
-  const whatsappBody = copy.whatsappBody
-    .replace('{project}', project)
-    .replace('{next}', copy.doneNext)
+  const emailBody = copy.emailBody
+  const whatsappBody = copy.whatsappBody.replace('{project}', project)
   const emailHref = `mailto:${contactEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
   const whatsappHref = `https://wa.me/${contactWhatsApp}?text=${encodeURIComponent(whatsappBody)}`
   async function copyContactEmail() {

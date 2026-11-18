@@ -161,6 +161,11 @@ describe('Briefly flow', () => {
     expect(screen.getByRole('link', { name: 'Send by WhatsApp' }).getAttribute('href')).toMatch(
       /^https:\/\/wa\.me\//,
     )
+    // The client sends these messages, so they must not carry the provider's "send this to me" line.
+    for (const name of ['Send by email', 'Send by WhatsApp']) {
+      const href = decodeURIComponent(screen.getByRole('link', { name }).getAttribute('href') ?? '')
+      expect(href).not.toContain('come back with a plan')
+    }
     expect(JSON.parse(localStorage.getItem('briefly:lang') ?? '{}').state.language).toBe('en')
     expect(screen.queryByRole('button', { name: 'Copy as text' })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Download PDF' })).toBeInTheDocument()

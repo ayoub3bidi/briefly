@@ -58,8 +58,8 @@ const ar = {
   whatNext: 'ماذا بعد؟',
   doneNext: 'أرسل إليّ هذا الملخص، وسأعود إليك بخطة وتقدير للتكلفة.',
   emailSubject: 'ملخص المشروع | {project}',
-  emailBody: 'مرحبًا، أتممت ملخص مشروعي وأرفقت ملف PDF بهذه الرسالة.\n\n{next}',
-  whatsappBody: 'مرحبًا، أتممت ملخص مشروع {project}. سأرفق ملف PDF هنا. {next}',
+  emailBody: 'مرحبًا، أتممت ملخص مشروعي وأرفقت ملف PDF بهذه الرسالة.',
+  whatsappBody: 'مرحبًا، أتممت ملخص مشروع {project}. سأرفق ملف PDF هنا.',
   contactNotConfigured:
     'مشاركة البريد الإلكتروني غير مهيأة بعد. أضف VITE_CONTACT_EMAIL إلى إعدادات المشروع لتفعيلها.',
   copied: 'تم النسخ',

@@ -58,8 +58,8 @@ const en = {
   whatNext: 'What happens next',
   doneNext: 'Send this to me and I’ll come back with a plan and an estimate.',
   emailSubject: 'Project brief | {project}',
-  emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.\n\n{next}',
-  whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here. {next}',
+  emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.',
+  whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here.',
   contactNotConfigured:
     'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
   copied: 'Copied',

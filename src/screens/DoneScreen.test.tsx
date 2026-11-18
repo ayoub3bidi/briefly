@@ -36,8 +36,8 @@ function renderDoneScreen({
       'Email sharing is not set up yet. Add VITE_CONTACT_EMAIL to the project environment to enable it.',
     emailAttachHint: 'Attach the PDF to this email before sending.',
     emailSubject: 'Project brief | {project}',
-    emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.\n\n{next}',
-    whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here. {next}',
+    emailBody: 'Hi, I’ve completed my project brief. I’m attaching the PDF.',
+    whatsappBody: 'Hi, I’ve completed the brief for {project}. I’ll attach the PDF here.',
     startOver: 'Start over',
     startOverConfirm:
       'This will erase your saved answers and start the brief from the beginning. Are you sure?',
