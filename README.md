@@ -6,7 +6,7 @@ A guided client questionnaire that turns a project idea into a clear brief.
 
 Send prospective clients a link. They answer a short set of questions, download a PDF brief, and send it to you by email or WhatsApp. Nothing touches a server.
 
-**Live:** [briefly.ayoub3bidi.me](https://briefly.ayoub3bidi.me)
+**Live:** [briefly.ayoub3bidi.me](https://briefly.ayoub3bidi.me) · **Freelancer?** [Get your own branded copy](#hosted-version)
 
 ## Features
 
@@ -20,6 +20,10 @@ Send prospective clients a link. They answer a short set of questions, download 
 ## Privacy
 
 Briefly is frontend-only. There is no backend and no analytics. Answers live only in the client's `localStorage` until they choose to send the PDF. The only network request is a call to the GitHub API for the repository's star count shown in the header (`src/components/GitHubStars.tsx`).
+
+## Hosted version
+
+Freelancer and want your own branded copy without running it yourself? Email [contact@ayoub3bidi.me](mailto:contact@ayoub3bidi.me?subject=I%20want%20a%20hosted%20Briefly) with the subject "I want a hosted Briefly".
 
 ## Tech stack
 

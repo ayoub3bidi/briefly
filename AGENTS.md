@@ -129,6 +129,9 @@ There is deliberately no copy-as-text export. The PDF is the only brief format.
 - **Privacy promise.** The intro tells users their answers never leave the browser, and that
   the only network request is the GitHub star count (`GitHubStars`). Do not add analytics,
   other fetches, or third-party scripts without changing that copy (`dataPrivacy`).
+- **Hosted call to action.** The "Freelancer? Get your own branded copy" link (`HOSTED_CTA_HREF`
+  in `App.tsx`, shown on the intro and done screens) uses a hardcoded upstream email on purpose.
+  Do not switch it to `VITE_CONTACT_EMAIL`.
 - **Tests.** Stores and storage are module singletons. Tests rely on `setup.ts` clearing
   `localStorage`. Follow the existing test files for patterns (`App.test.tsx` drives the full
   flow with `user-event`).

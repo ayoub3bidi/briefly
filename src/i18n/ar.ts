@@ -14,6 +14,7 @@ const ar = {
   langArabic: 'العربية',
   theme: 'المظهر',
   starOnGitHub: 'ضع نجمة على GitHub',
+  hostedCta: 'مستقل؟ احصل على نسختك الخاصة بعلامتك التجارية ←',
   themeLight: 'فاتح',
   themeDark: 'داكن',
   duration: 'حوالي 10 دقائق',

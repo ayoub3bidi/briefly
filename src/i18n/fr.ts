@@ -14,6 +14,7 @@ const fr = {
   langArabic: 'العربية',
   theme: 'Thème',
   starOnGitHub: 'Mettre une étoile sur GitHub',
+  hostedCta: 'Freelance ? Obtenez votre propre version à votre image →',
   themeLight: 'Clair',
   themeDark: 'Sombre',
   duration: 'Environ 10 minutes',

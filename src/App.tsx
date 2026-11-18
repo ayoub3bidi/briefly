@@ -60,6 +60,9 @@ const themeIcons: Record<Mode, ReactNode> = {
   dark: <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />,
 }
 
+// Hardcoded on purpose (not VITE_CONTACT_EMAIL): hosted-copy requests reach the upstream author, forks included.
+const HOSTED_CTA_HREF = `mailto:contact@ayoub3bidi.me?subject=${encodeURIComponent('I want a hosted Briefly')}`
+
 const darkQuery = '(prefers-color-scheme: dark)'
 
 function subscribeToOsTheme(onChange: () => void) {
@@ -437,6 +440,17 @@ function App() {
               language={language}
               copy={copy}
             />
+          )}
+
+          {(screen === 'intro' || screen === 'done') && (
+            <p className="mt-8 text-sm text-muted">
+              <a
+                href={HOSTED_CTA_HREF}
+                className="inline-flex min-h-11 items-center font-medium text-ink underline decoration-line underline-offset-2 transition-colors hover:decoration-ink focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              >
+                {copy.hostedCta}
+              </a>
+            </p>
           )}
         </section>
       </main>

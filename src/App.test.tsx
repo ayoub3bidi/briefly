@@ -95,7 +95,12 @@ describe('Briefly flow', () => {
     vi.stubEnv('VITE_CONTACT_WA', '+216 12 345 678')
     render(<App />)
 
+    const hostedHref = 'mailto:contact@ayoub3bidi.me?subject=I%20want%20a%20hosted%20Briefly'
+    // Points upstream regardless of the configured contact email.
+    expect(screen.getByRole('link', { name: /branded copy/ })).toHaveAttribute('href', hostedHref)
+
     await enterQuestions(user)
+    expect(screen.queryByRole('link', { name: /branded copy/ })).not.toBeInTheDocument()
 
     const problem = screen.getByRole('textbox', {
       name: 'What problem are you trying to solve, and how do you deal with it today?',
@@ -158,6 +163,7 @@ describe('Briefly flow', () => {
     expect(screen.getByRole('link', { name: 'Send by email' }).getAttribute('href')).toMatch(
       /^mailto:/,
     )
+    expect(screen.getByRole('link', { name: /branded copy/ })).toHaveAttribute('href', hostedHref)
     expect(screen.getByRole('link', { name: 'Send by WhatsApp' }).getAttribute('href')).toMatch(
       /^https:\/\/wa\.me\//,
     )

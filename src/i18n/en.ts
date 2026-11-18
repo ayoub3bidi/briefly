@@ -12,6 +12,7 @@ const en = {
   langArabic: 'العربية',
   theme: 'Theme',
   starOnGitHub: 'Star on GitHub',
+  hostedCta: 'Freelancer? Get your own branded copy →',
   themeLight: 'Light',
   themeDark: 'Dark',
   duration: 'About 10 minutes',
